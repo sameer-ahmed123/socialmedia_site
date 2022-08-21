@@ -1,0 +1,23 @@
+
+        {% if user.is_authenticated %}
+        {% if obj %}
+        <h1 style="background:skyblue;text-align:center;">Posts</h1>
+            {% for obj in obj %}
+            <div style="background:lightgrey;border-radius:5px;margin-bottom:20px;padding:1rem;">
+                   <form method="get">
+                       <input  hidden  value="{{obj.id}}" name="liked_post_id">
+                   </form>
+
+                <p>{{obj.user}}</p>
+                <p>{{obj.name}}</p>
+                <img height="250px" width="100%" src="{{  obj.image.url  }}" alt="Image ">
+                <p>{{obj.desription}}</p>
+               {% include "like_page.html" %}
+                <h4>add a comment</h4>
+                {% include "comments.html" %}
+            </div>
+            {% endfor %}
+        {% else %}
+        <h1 style="background:skyblue;text-align:center;">No Posts available</h1>
+        {% endif %}
+        {% endif %}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/htmx.org@1.8.0"></script>
+</head>
+<body>
+<div style="height:100vh;display:flex;align-items:center;justify-content:space-around;">
+
+<!--    will need to learn how to show content as agax with htmx-->
+
+
+    <div style="height:500px;width:400px;background:grey;display:flex;align-items:center;justify-content:center;">
+        {% include "login-form.html" %}
+    </div>
+    <br>
+
+
+
+    <div style="width:400px;height:500px;background:grey;overflow-y: auto;padding:10px;"   hx-get="show" hx-trigger=" revealed ">
+         <div  class="htmx-indicator">Loading..</div>
+    </div>
+
+
+<div hx-get="like_num" hx-trigger="every 2s">
+
+</div>
+ {% for obj in obj %}
+ <input type="hidden" value="{{obj.id}}" name="liked_post_">
+    {% endfor %}
+</div>
+</body>
+</html>

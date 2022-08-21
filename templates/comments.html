@@ -1,0 +1,8 @@
+{% if user.is_authenticated %}
+<form  action="{% url 'comment' %}"  method="post" hx-post="{% url 'comment'  %}"  hx-swap="outerHTML" >
+    {% csrf_token %}
+    <input type="text" name="comment" >
+    <input type="hidden" value="{{user.id}}">
+<button name="comment_post_id" type="submit" value="{{ obj.id }}">Comment</button>
+</form>
+{% endif %}
