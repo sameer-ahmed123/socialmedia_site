@@ -1,15 +1,12 @@
- <form action="{% url 'post_like'  %}"  method="post" hx-post="{% url 'post_like'  %}"  hx-swap="outerHTML" >
-   {% csrf_token %}
+
+<!--  method="post" hx-post="{% url 'post_like'  %}" -->
 
      {% if request.user in obj.like.all %}
-     <button name="post_id" type="submit" value="{{ obj.id }}">Unlike </button>
+     <button id="btn_1" name="post_id" type="submit" value="{{ obj.id }}">Unlike </button>
      {% else %}
-     <button name="post_id"  type="submit" value="{{ obj.id }}">Like </button>
+     <button  name="post_id"  type="submit" value="{{ obj.id }}">Like </button>
      {% endif %}
 
-     {% if obj.like_count %} --
-     {{obj.like_count}}  likes
-     {% endif %}
+<span id="like_count"> {{obj.like_count}}</span>
 
- </form>
 

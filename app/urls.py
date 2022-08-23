@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import index, show, LikeView, addComment, likeviewNumber
+from .views import index, show, LikeView, addComment\
+    # , likeviewNumber
 
 
 urlpatterns = [
@@ -7,7 +8,7 @@ urlpatterns = [
     path("show", show, name="show"),
     path("like/", LikeView, name="post_like"),
     path("comment/",addComment, name="comment" ),
-    path('like_num',likeviewNumber )
+   # path('like_num',likeviewNumber )
 ]
 
 

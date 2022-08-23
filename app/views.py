@@ -3,7 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
 from django.urls import reverse_lazy,reverse
 from .models import Posts, Comments
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 # Create your views here.
 
 
@@ -40,32 +40,43 @@ def show(request, *args, **kwargs):
     return render(request, "show.html", context)
 
 
-def LikeView(request, ):
-    post_like = get_object_or_404(Posts, id=request.POST.get("post_id") )
 
 
-    if request.user in post_like.like.all():
-        post_like.like.remove(request.user)
-    else:
-        post_like.like.add(request.user)
+def LikeView(request):
+    if request.POST.get('action') == 'post':
+            # post_id = request.POST.get('post_id')
+            result = ''
+            id = request.POST.get('postid')
+            post = get_object_or_404(Posts, id=id)
+            if request.user in post.like.all():
+                post.like.remove(request.user)
+                post.like_count -= 1
+                result = post.like_count
+                post.save()
+            else:
+                post.like.add(request.user)
+                post.like_count += 1
+                result = post.like_count
+                post.save()
 
-    if request.htmx:
-        return render(request, "like_page.html", )  #abhi htmx k through me likes kar raha hu hay hay maze
-    return HttpResponseRedirect(reverse("home"))
+            return JsonResponse({'result': result})
 
-def likeviewNumber(request, *args,**kwargs):#this needs to be resolved
-    the_id = request.GET.get('liked_post_')  #this needs to be resolved
-    print("the id",the_id) #this needs to be resolved
-    liked_post = get_object_or_404(Posts,id=1)      #this needs to be resolved
-    print(liked_post)
-    context = {
-        "liked_post":liked_post
-    }
-
-    if request.htmx:
-        return render(request,"like_counting.html", context)
-    return render(request,"like_counting.html", context)
-# HttpResponseRedirect(reverse( "show", args=[ str(id) ]) )
+    # if request.POST.get('action') == 'POST':
+    #     result = ""
+    #     id = request.POST.get('postid')
+    #     post = get_object_or_404(Posts,id)
+    #     if post.like.filter(id=request.user.id).exists():
+    #         post.like.remove(request.user)
+    #         post.like_count -= 1
+    #         result = post.like_count
+    #         post.save()
+    #     else:
+    #         post.like.add(request.user)
+    #         post.like_count += 1
+    #         result = post.like_count
+    #         post.save()
+    #
+    #     return JsonResponse({"result": result})
 
 
 def addComment(request):

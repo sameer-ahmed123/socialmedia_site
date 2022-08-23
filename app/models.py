@@ -8,7 +8,8 @@ class Posts(models.Model):
     post_name = models.CharField(max_length=150)
     desription = models.CharField(max_length=200)
     image = models.ImageField(upload_to="images/uploads")
-    like = models.ManyToManyField(User, related_name="liked", blank=True)
+    like = models.ManyToManyField(User, related_name="liked", blank=True, default=None)
+    # like_count = models.BigIntegerField(default=0)
     date_added = models.DateField(auto_now_add=True, blank=True)
 
     @property

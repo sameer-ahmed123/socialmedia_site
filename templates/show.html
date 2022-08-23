@@ -1,4 +1,6 @@
 
+{% load static %}
+
         {% if user.is_authenticated %}
         {% if obj %}
         <h1 style="background:skyblue;text-align:center;">Posts</h1>
@@ -12,12 +14,20 @@
                 <p>{{obj.name}}</p>
                 <img height="250px" width="100%" src="{{  obj.image.url  }}" alt="Image ">
                 <p>{{obj.desription}}</p>
-               {% include "like_page.html" %}
+                {% include "like_page.html" %}
+<!--                <button id="btn_1"  name="btn_1" type="submit" value="{{ obj.id }}">like </button>-->
+<!--                <span id="like_count">{{obj.like_count}}</span>-->
+
                 <h4>add a comment</h4>
                 {% include "comments.html" %}
             </div>
             {% endfor %}
+
         {% else %}
         <h1 style="background:skyblue;text-align:center;">No Posts available</h1>
         {% endif %}
         {% endif %}
+
+
+
+
