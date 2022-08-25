@@ -1,0 +1,6 @@
+                {% if request.user in obj.like.all %}
+                    <button class="btn_1"  name="btn_1" type="submit"  data-post-id="{{ obj.id }}" >Unlike </button>
+                 {% else %}
+                    <button class="btn_1"  name="btn_1" type="submit"  data-post-id="{{ obj.id }}" >like </button>
+                 {% endif %}
+                 <span id="like_count{{ obj.id }}">{{obj.like_count}}</span>

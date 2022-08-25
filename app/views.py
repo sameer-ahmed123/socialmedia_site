@@ -46,20 +46,26 @@ def LikeView(request):
     if request.POST.get('action') == 'post':
             # post_id = request.POST.get('post_id')
             result = ''
+            like_unlike = ''
             id = request.POST.get('postid')
+            print(id)
             post = get_object_or_404(Posts, id=id)
             if request.user in post.like.all():
                 post.like.remove(request.user)
                 post.like_count -= 1
                 result = post.like_count
+                like_unlike = "Unlike"
                 post.save()
             else:
                 post.like.add(request.user)
                 post.like_count += 1
                 result = post.like_count
+                like_unlike = "Like"
                 post.save()
 
-            return JsonResponse({'result': result})
+            return JsonResponse({'result': result, "like_unlike": like_unlike})
+
+
 
     # if request.POST.get('action') == 'POST':
     #     result = ""

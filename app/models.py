@@ -9,12 +9,12 @@ class Posts(models.Model):
     desription = models.CharField(max_length=200)
     image = models.ImageField(upload_to="images/uploads")
     like = models.ManyToManyField(User, related_name="liked", blank=True, default=None)
-    # like_count = models.BigIntegerField(default=0)
+    like_count = models.BigIntegerField(default=0)
     date_added = models.DateField(auto_now_add=True, blank=True)
 
-    @property
-    def like_count(self):
-        return self.like.count()
+    # @property
+    # def like_count(self):
+    #     return self.like.count()
 
     def __str__(self):
         return self.desription

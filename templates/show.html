@@ -14,9 +14,16 @@
                 <p>{{obj.name}}</p>
                 <img height="250px" width="100%" src="{{  obj.image.url  }}" alt="Image ">
                 <p>{{obj.desription}}</p>
-                {% include "like_page.html" %}
-<!--                <button id="btn_1"  name="btn_1" type="submit" value="{{ obj.id }}">like </button>-->
-<!--                <span id="like_count">{{obj.like_count}}</span>-->
+
+<!--                 {% if request.user in obj.like.all %}-->
+<!--                    <button class="btn_1"  name="btn_1" type="submit"  data-post-id="{{ obj.id }}" >Unlike </button>-->
+<!--                 {% else %}-->
+<!--                    <button class="btn_1"  name="btn_1" type="submit"  data-post-id="{{ obj.id }}" >like </button>-->
+<!--                 {% endif %}-->
+<!--                 <span id="like_count{{ obj.id }}">{{obj.like_count}}</span>-->
+                <div id="like-div">
+                {% include "partial.html" %}
+                </div>
 
                 <h4>add a comment</h4>
                 {% include "comments.html" %}

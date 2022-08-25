@@ -26,21 +26,26 @@
 
     <script src="{% static 'jquery-3.6.0.js' %}" type="text/javascript"></script>
     <script>
-        $(document).on('click','#btn_1',function(e){
+        $(document).on('click','.btn_1',function(e){
             e.preventDefault();
           $.ajax({
             type:'POST',
             url:'{% url "post_like" %}',
-            data:{
-              postid:$('post_id').val(),  // idher mene abhi name=Post_id use kia ha <like_page.html> k ander  /warna yahan par buton ki id use hoti ha #btn_1
-              csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
-              action:'post'
+            data: {
+                postid: $(this).data("post-id"),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                action:'post'
             },
-            success:function(json){
-              document.getElementById("like_count").innerHTML=json['result']
-              console.log(json)
+            success: function(json) {
+                $('#like_count' + $(this).data("post-id")).html(json['result'])
+                $(this).html(json['like_unlike'])
+                console.log(json)
+                console.log($(this).data("post-id"))
+
+
             },
             error:function(xhr,errmsg,err){
+            console.error(xhr, errmsg, err)
            }
          });
 })
