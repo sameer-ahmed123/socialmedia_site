@@ -54,13 +54,13 @@ def LikeView(request):
                 post.like.remove(request.user)
                 post.like_count -= 1
                 result = post.like_count
-                like_unlike = "Unlike"
+                like_unlike = "like"
                 post.save()
             else:
                 post.like.add(request.user)
                 post.like_count += 1
                 result = post.like_count
-                like_unlike = "Like"
+                like_unlike = "Unlike"
                 post.save()
 
             return JsonResponse({'result': result, "like_unlike": like_unlike})

@@ -36,7 +36,7 @@
                 csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
                 action:'post'
             },
-            success: function(json) {
+            success: (json) => {
                 $('#like_count' + $(this).data("post-id")).html(json['result'])
                 $(this).html(json['like_unlike'])
                 console.log(json)
