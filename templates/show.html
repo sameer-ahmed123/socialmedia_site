@@ -1,0 +1,55 @@
+{% load static %}
+
+{% if user.is_authenticated %}
+{% if obj %}
+<h1 style="background:skyblue;text-align:center;">Posts</h1>
+{% for obj in obj %}
+<div style="background:lightgrey;border-radius:5px;margin-bottom:20px;padding:1rem;">
+    <form method="post">
+        <input hidden value="{{obj.id}}" name="liked_post_id">
+    </form>
+
+    <p>{{obj.user}}</p>
+    <p>{{obj.name}}</p>
+    {% if  obj.image.url|slice:"-4:" == ".mp4"  %}
+    <video src="{{  obj.image.url  }}" controls height="250px" width="100%" ></video>
+    {% else %}
+    <img height="250px" width="100%" src="{{  obj.image.url  }}" alt="Image ">
+    {% endif %}
+    <p>{{obj.desription}}</p>
+
+    <div id="like-div">
+        {% include "partial.html" %}
+    </div>
+    <a href='{% url "post_detail" obj.id  %}' style="    appearance: auto;
+        writing-mode: horizontal-tb !important;
+        text-rendering: auto;
+        color: buttontext;
+        letter-spacing: normal;
+        word-spacing: normal;
+        line-height: normal;
+        text-transform: none;
+        text-indent: 0px;
+        text-shadow: none;
+        display: inline-block;
+        text-align: center;
+        align-items: flex-start;
+        cursor: default;
+        box-sizing: border-box;
+        background-color: buttonface;
+        margin: 0em;
+        padding: 1px 6px;
+        border-width: 2px;
+        border-style: outset;
+        border-color: buttonborder;
+        border-image: initial;">comment</a>
+
+        <!-- ADD THE ABILITY TO UPLOAD VIDDEOS -->
+
+</div>
+{% endfor %}
+
+{% else %}
+<h1 style="background:skyblue;text-align:center;">No Posts available</h1>
+{% endif %}
+{% endif %}
