@@ -73,5 +73,6 @@ def getComments(request, id):
         comnt = Comments(comment=comment, user=request.user, post=the_comments)
         comnt.save()
     if request.htmx:
+        print("htmx comment")
         return render(request, "comments.html")
     return render(request, "comments_show.html", {"comments": the_comments})

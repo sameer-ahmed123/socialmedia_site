@@ -1,32 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<!-- extending this page with base.html does not show htmx updated but allows htmx to proced -->
 
-<body>
     <div style="width: 100%;">
         {% if comments.image.url|slice:"-4:" == ".mp4" %}
         <video src="{{  comments.image.url  }}" controls height="500px" width="50%"></video>
         {% else %}
-        <img height="250px" width="100%" src="{{  comments.image.url  }}" alt="Image ">
+        <img height="250px" width="100%"  style="width: 50%;margin-left:auto;margin-right:auto;"src="{{  comments.image.url  }}" alt="Image ">
         {% endif %}
 
-        <img src="{{ comments.image.url }}" style="width: 50%;margin-left:auto;margin-right:auto;" alt=""><br>
+        <!-- <img src="{{ comments.image.url }}" style="width: 50%;margin-left:auto;margin-right:auto;" alt=""><br> -->
         <strong>{{comments.post_name}}</strong>
-        {% include "comments.html" %}
+       
 
     </div>
+    {% include "comments.html" %}
 
 
 
     {% for comments in comments.comments.all %}
     <p>{{comments.comment}}</p>
     {% endfor %}
-</body>
 
-</html>
+
