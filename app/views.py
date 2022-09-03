@@ -9,20 +9,11 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 def index(request):
-    form = AuthenticationForm
     obj = Posts.objects.all()
     context = {
-        "form": form,
         "obj": obj
     }
-    if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-    if request.htmx:
-        return render(request, "login-form.html", context)
-
+  
     return render(request, "index.html", context)
 
 def logout_view(request):
@@ -30,6 +21,22 @@ def logout_view(request):
         logout(request)
         return redirect("home")
     return render(request, "logout.html")
+
+def login_view(request):
+    form = AuthenticationForm
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            print("logedin as admin")
+            return redirect("home")
+    else:
+        form = AuthenticationForm(request)
+    context = {
+        "form": form
+    }
+    return render(request, "login.html", context)
 
 def show(request, *args, **kwargs):
     try:

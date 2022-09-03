@@ -3,9 +3,9 @@
 
 {% block content %}
 
-
-    <div style="height:100vh;display:flex;align-items:center;justify-content:space-around;">
-        <div style="height:500px;width:400px;background:grey;display:flex;align-items:center;justify-content:center;">
+<div style="padding-left: 10%;padding-right: 10%;">
+    <div style="height:100vh;display:flex;align-items:center;justify-content:flex-start;">
+        <!-- <div style="height:500px;width:400px;background:grey;display:flex;align-items:center;justify-content:center;">
             {% if user.is_authenticated %}
             <div>
                 <h3>Logout</h3>
@@ -34,19 +34,21 @@
                 cursor:pointer;" href="/logout">Logout</a>
             </div>
             {% else %}
-            {% include "login-form.html" %}
+            
             {% endif %}
 
-        </div>
-        <br>
+        </div> -->
 
-        <div style="width:400px;height:500px;background:grey;overflow-y: auto;padding:10px;" hx-get="show"
+
+        <div style="width:600px;height:500px;" hx-get="show"
             hx-trigger=" revealed change delay:200ms ">
             <div class="htmx-indicator">Loading..</div>
         </div>
 
     </div>
+</div>
+
+
 
 {% endblock %}
-    <!--    will need to learn how to show content as agax with htmx-->
-
+<!--    will need to learn how to show content as agax with htmx-->

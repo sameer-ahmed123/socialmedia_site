@@ -1,4 +1,7 @@
-<form action="." method="post" hx-post="." hx-swap="outerHTML">
+{% extends "base.html" %}
+
+{% block content %}
+<form  method="post" >
     {% csrf_token %}
     {{form.as_p}} 
    
@@ -7,3 +10,5 @@
     <input type="checkbox" id="pass_chkbox">
 </form>
 
+
+{% endblock %}  exit()
