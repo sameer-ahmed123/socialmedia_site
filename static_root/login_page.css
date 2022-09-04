@@ -1,0 +1,8 @@
+
+
+.login_box{
+
+    box-shadow: -18px 19px 40px 0px rgba(71,67,67,0.8) inset;
+-webkit-box-shadow: -18px 19px 40px 0px rgba(71,67,67,0.8) inset;
+-moz-box-shadow: -18px 19px 40px 0px rgba(71,67,67,0.8) inset;
+}

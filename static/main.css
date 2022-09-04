@@ -1,0 +1,95 @@
+/* login page */
+/* End login page */
+
+/* *************************************************************************************************** */
+/* logout page */
+
+.form_logout:hover{
+    box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
+}
+
+.logout_btn{
+    padding: 5px;
+    font: 1.4rem sans-serif;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 20px;
+    color: darkgreen;
+    width: 50%;
+    cursor: pointer;
+}
+
+.to_home{
+    text-decoration: none !important;
+    padding: 5px;
+    font-size: 24px;
+    color: #000;
+    background: 
+      linear-gradient(currentColor 0 0) 
+      0 100% /var(--d, 0) 3px 
+    no-repeat;
+  transition:0.5s;
+}
+.to_home:hover{
+    color: darkgreen;
+    transform: scale(1.02);
+    --d: 100%;
+}
+
+
+.logout_btn:hover{
+    transform: scale(1.02);
+    font: 1.4rem sans-serif;
+    padding: 5px;
+    background-color: darkgreen;
+    border: 1px solid #fff;
+    border-radius: 20px;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: rgb(155, 180, 156) -1px 4px;
+    transition: all 0.3s;
+    animation: move 400ms infinite alternate;
+}
+
+@keyframes move{
+    0%{
+       transform:  translate(3px) ;
+    }
+    100%{
+       transform:  translate(-3px);
+    }
+}
+
+
+@media screen and (max-width: 800px ) { 
+    .div_main{
+        height: 800px;
+    }
+    .logout_btn{
+        
+        font: 26px sans-serif;
+        width: 70%;
+    }
+    
+    .form_logout{
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .div_main{
+        height: 375;
+    }
+
+    .logout_btn{
+        font: 16px sans-serif;
+    }
+    .form_logout{
+        width:80% ;
+        font-size: 18px;
+
+    }
+}
+
+/* End login page */
+/* **************************************************************************************************** */

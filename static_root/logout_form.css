@@ -1,21 +1,5 @@
-.main_div{
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content:center;
-}
-
-.form_logout{
-    height: 20%;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    border: 1px solid rgb(48, 46, 44);
-    border-radius: 10px;
-    background-color: antiquewhite;
-    padding: 5%;
-    justify-content:center;
-    align-items: flex-end;
+.form_logout:hover{
+    box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
 }
 
 .logout_btn{
@@ -29,7 +13,16 @@
     cursor: pointer;
 }
 
+.to_home{
+    text-decoration: none !important;
+    padding: 5px;
+    font-size: 24px;
+    
+}
+
+
 .logout_btn:hover{
+    transform: scale(1.02);
     font: 1.4rem sans-serif;
     padding: 5px;
     background-color: darkgreen;
@@ -37,8 +30,18 @@
     border-radius: 20px;
     color: #fff;
     cursor: pointer;
-    box-shadow: rgb(31, 29, 29) -1px 4px;
+    box-shadow: rgb(155, 180, 156) -1px 4px;
     transition: all 0.3s;
+    animation: move 400ms infinite alternate;
+}
+
+@keyframes move{
+    0%{
+       transform:  translate(3px) ;
+    }
+    100%{
+       transform:  translate(-3px);
+    }
 }
 
 

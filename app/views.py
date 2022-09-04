@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404 ,redirect 
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from app.forms import login_form
 from django.contrib.auth import login, logout
 from django.urls import reverse_lazy, reverse
 from .models import Posts, Comments
@@ -19,20 +20,20 @@ def index(request):
 def logout_view(request):
     if request.method == "POST":
         logout(request)
-        return redirect("home")
+        return redirect("login_view")
     return render(request, "logout.html")
 
 def login_view(request):
-    form = AuthenticationForm
+    form = login_form
     if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
+        form = login_form(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)
             print("logedin as admin")
             return redirect("home")
     else:
-        form = AuthenticationForm(request)
+        form = login_form(request)
     context = {
         "form": form
     }
