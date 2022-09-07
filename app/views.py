@@ -1,13 +1,15 @@
-from django.shortcuts import render, HttpResponse, get_object_or_404 ,redirect 
+from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from app.forms import login_form
+from app.forms import login_form, postCreateForm
 from django.contrib.auth import login, logout
 from django.urls import reverse_lazy, reverse
 from .models import Posts, Comments
 from django.http import HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+
 # Create your views here.
+
 
 @login_required
 def index(request):
@@ -18,7 +20,7 @@ def index(request):
     context = {
         "obj": obj
     }
-  
+
     return render(request, "index.html", context)
 
 # def logout_view(request):
@@ -26,6 +28,7 @@ def index(request):
 #         logout(request)
 #         return redirect("home")
 #     return render(request, "logout.html")
+
 
 def login_view(request):
     form = login_form
@@ -43,6 +46,7 @@ def login_view(request):
     }
     return render(request, "login.html", context)
 
+
 def show(request, *args, **kwargs):
     try:
         obj = Posts.objects.all()
@@ -54,6 +58,7 @@ def show(request, *args, **kwargs):
     }
 
     return render(request, "show.html", context)
+
 
 @csrf_exempt
 def LikeView(request):
@@ -77,6 +82,7 @@ def LikeView(request):
 
         return JsonResponse({'result': result, "like_unlike": like_unlike})
 
+
 def getComments(request, id):
     the_comments = Posts.objects.get(id=id)
     comment = request.POST.get("comment")
@@ -88,3 +94,23 @@ def getComments(request, id):
         print("htmx comment")
         return render(request, "comments.html")
     return render(request, "comments_show.html", {"comments": the_comments})
+
+@login_required
+def create_post(request):
+    form = postCreateForm
+    if request.method == "POST":
+        form = postCreateForm(request.POST, request.FILES)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.save()
+            print("saving")
+            return redirect("home")
+    else:
+        form = postCreateForm()
+        print("not saving")
+
+    context = {
+        "form": form
+    }
+    return render(request, "create_post.html", context)

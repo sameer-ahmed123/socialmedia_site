@@ -1,0 +1,10 @@
+
+<h1>Create a post</h1>
+<h2>and share your expirences with the world</h2>
+
+
+<form style="margin-top: 300px;"  method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+   {{form.as_p}}
+   <input type="submit" value="post">
+</form>
