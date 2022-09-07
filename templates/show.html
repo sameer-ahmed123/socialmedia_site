@@ -3,7 +3,8 @@
 
 {% if obj %}
 {% for obj in obj %}
-<div style="border-radius:5px;margin-bottom:35px;padding:1rem;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; ">
+<div
+    style="border-radius:5px;margin-bottom:35px;padding:1rem;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;margin-top:50px; ">
     <form method="post">
         <input hidden value="{{obj.id}}" name="liked_post_id">
     </form>
@@ -16,6 +17,7 @@
         <img width="100%" src="{{  obj.image.url  }}" alt="Image ">
         {% endif %}
         <p>{{obj.desription}}</p>
+        <p id="likes_me{{obj.id}}"></p>
     </div>
 
 
@@ -48,6 +50,15 @@
     <!-- ADD THE ABILITY TO UPLOAD VIDDEOS -->
 
 </div>
+<script>
+    var formatter = Intl.NumberFormat('en', { notation: 'compact' })
+    var likeee = document.getElementById("likes_me{{obj.id}}")
+    var the_Numbers = document.getElementById("like_count{{ obj.id }}").value
+    console.log("from partials.html", the_Numbers)
+    var n = formatter.format("{{obj.like_count}}")
+    likeee.innerHTML = n
+    console.log(n)
+</script>
 {% endfor %}
 
 {% else %}

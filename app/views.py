@@ -6,22 +6,26 @@ from django.urls import reverse_lazy, reverse
 from .models import Posts, Comments
 from django.http import HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
-
+@login_required
 def index(request):
     obj = Posts.objects.all()
+    if request.method == "POST":
+        logout(request)
+        return redirect("login_view")
     context = {
         "obj": obj
     }
   
     return render(request, "index.html", context)
 
-def logout_view(request):
-    if request.method == "POST":
-        logout(request)
-        return redirect("login_view")
-    return render(request, "logout.html")
+# def logout_view(request):
+#     if request.method == "POST":
+#         logout(request)
+#         return redirect("home")
+#     return render(request, "logout.html")
 
 def login_view(request):
     form = login_form
@@ -30,7 +34,7 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            print("logedin as admin")
+            print("logedin as", user)
             return redirect("home")
     else:
         form = login_form(request)
