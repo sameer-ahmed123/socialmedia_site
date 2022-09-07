@@ -1,5 +1,8 @@
 {% load static %}
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 
 {% if obj %}
 {% for obj in obj %}
@@ -12,9 +15,9 @@
         <p>{{obj.user}}</p>
         <p>{{obj.name}}</p>
         {% if obj.image.url|slice:"-4:" == ".mp4" %}
-        <video src="{{  obj.image.url  }}" controls height="250px" width="100%"></video>
+        <video lazy src="{{  obj.image.url  }}" controls height="250px" width="100%"></video>
         {% else %}
-        <img width="100%" src="{{  obj.image.url  }}" alt="Image ">
+        <img lazy width="100%" data-src="{{  obj.image.url  }}" alt="Image ">
         {% endif %}
         <p>{{obj.desription}}</p>
         <p id="likes_me{{obj.id}}"></p>
@@ -64,3 +67,39 @@
 {% else %}
 <h1 style="background:skyblue;text-align:center;">No Posts available</h1>
 {% endif %}
+
+
+
+<script>
+    const images = document.querySelectorAll("[data-src]");
+
+    function preLoadImage(img) {
+        const src = img.getAttribute("data-src")
+        if (!src) {
+            return;
+        }
+        img.src = src
+    }
+
+    const imgOptions = {
+        rootMargin: "150px "
+    }
+
+
+    const img_observer = new IntersectionObserver((entries, img_observer) => {
+        entries.forEach(entry => {
+            if(!entry.isIntersecting) {
+                return;
+            }
+            else {
+                preLoadImage(entry.target);
+                image_observer.unobserve(entry.target)
+            }
+        })
+    }, imgOptions)
+    
+    images.forEach(image => {
+        img_observer.observe(image)
+    })
+    
+</script>
