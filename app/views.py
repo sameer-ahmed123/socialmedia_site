@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from app.forms import login_form, postCreateForm
+from app.forms import login_form, postCreateForm, CommentForm
 from django.contrib.auth import login, logout
 from django.urls import reverse_lazy, reverse
 from .models import Posts, Comments
@@ -84,16 +84,38 @@ def LikeView(request):
 
 
 def getComments(request, id):
+    # the_comments = Posts.objects.get(id=id)
+    # form = CommentForm
+    #   #make comment form to post comments
+    # if request.method == "POST":
+    #     form = CommentForm( request.POST)
+    #     if form.is_valid():#post_name
+    #         obj = form.save(commit=False)
+    #         obj.user = request.user
+    #         obj.post = the_comments
+    #         obj.save()
+    #         # redirect("post_detail", id=the_comments.id)
+    #         return redirect("post_detail", id=id)
+    # else:
+    #     form = CommentForm()
+    #     print("no Comments")   
+   
     the_comments = Posts.objects.get(id=id)
     comment = request.POST.get("comment")
     print(str(the_comments))
     if request.method == "POST":
         comnt = Comments(comment=comment, user=request.user, post=the_comments)
         comnt.save()
-    if request.htmx:
-        print("htmx comment")
-        return render(request, "comments.html")
-    return render(request, "comments_show.html", {"comments": the_comments})
+        return redirect("post_detail", id=id)
+    # if request.htmx:
+    #     print("htmx comment")
+    #     return render(request, "comments_show.html")
+    context =  { 
+        # "form": form,
+        "comments": the_comments
+    }    
+    return render(request, "comments_show.html",context)
+
 
 @login_required
 def create_post(request):

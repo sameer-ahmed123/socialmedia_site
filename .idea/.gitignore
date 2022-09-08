@@ -3,5 +3,6 @@
 /workspace.xml
 
 .env* .local
-
+/.env
+/-r
 /Image/

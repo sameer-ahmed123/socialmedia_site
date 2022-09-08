@@ -28,5 +28,6 @@ class Comments(models.Model):
 
     class Meta:
         db_table = "Comments"
-        ordering = ['-date_added']
+        ordering = ['-id']
+        
 

@@ -2,7 +2,7 @@ from dataclasses import fields
 from pyexpat import model
 from django.contrib.auth.forms import AuthenticationForm
 from django import forms
-from .models import Posts
+from .models import Posts, Comments
 
 class login_form(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control form-control-lg", "id": "form2Example17","autofocus": True}))
@@ -20,3 +20,7 @@ class postCreateForm(forms.ModelForm):
         )
 
     
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comments
+        fields = ('comment','post','user')
