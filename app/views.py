@@ -64,7 +64,9 @@ def show(request, *args, **kwargs):
 def LikeView(request):
     if request.POST.get('action') == 'post':
         result = ''
+        class_state = ''
         like_unlike = ''
+        class_rm = ''
         id = request.POST.get('postid')
         post = get_object_or_404(Posts, id=id)
         if request.user in post.like.all():
@@ -72,15 +74,27 @@ def LikeView(request):
             post.like_count -= 1
             result = post.like_count
             like_unlike = "like"
+            class_state = "btn-outline-success "
+            class_rm = "btn-outline-danger"
             post.save()
         else:
             post.like.add(request.user)
             post.like_count += 1
             result = post.like_count
             like_unlike = "Unlike"
+            class_state = "btn-outline-danger "
+            class_rm = "btn-outline-success"
             post.save()
 
-        return JsonResponse({'result': result, "like_unlike": like_unlike})
+
+        context = {
+            'result': result,
+            "like_unlike": like_unlike,
+            'class_state': class_state,
+            "class_rm": class_rm
+        }
+
+        return JsonResponse(context)
 
 
 def getComments(request, id):

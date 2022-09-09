@@ -152,8 +152,10 @@
                 success: (json) => {
                     $('#like_count' + $(this).data("post-id")).html("liked by" + " " + json['result'] + " " + "people")
                     $(this).html(json['like_unlike'])
-                    console.log(json)
-                    console.log($(this).data("post-id"))
+                    $(this).addClass(json['class_state'])
+                    $(this).removeClass(json['class_rm'])
+                    //console.log(json)
+                    //console.log($(this).data("post-id"))
                 },
                 error: function (xhr, errmsg, err) {
                     console.error(xhr, errmsg, err)

@@ -4,42 +4,7 @@
 {% block content %}
 
 <div style="padding-left: 10%;padding-right: 10%;">
-    <div style="display:flex;align-items:center;justify-content:flex-start;">
-        <!-- <div style="height:500px;width:400px;background:grey;display:flex;align-items:center;justify-content:center;">
-            {% if user.is_authenticated %}
-            <div>
-                <h3>Logout</h3>
-                <a style="appearance: auto;
-                writing-mode: horizontal-tb !important;
-                text-rendering: auto;
-                color: buttontext;
-                letter-spacing: normal;
-                word-spacing: normal;
-                line-height: normal;
-                text-transform: none;
-                text-indent: 0px;
-                text-shadow: none;
-                display: inline-block;
-                text-align: center;
-                align-items: flex-start;
-                cursor: default;
-                box-sizing: border-box;
-                background-color: buttonface;
-                margin: 0em;
-                padding: 1px 6px;
-                border-width: 2px;
-                border-style: outset;
-                border-color: buttonborder;
-                border-image: initial;
-                cursor:pointer;" href="/logout">Logout</a>
-            </div>
-            {% else %}
-            
-            {% endif %}
-
-        </div> -->
-
-
+    <div style="display:flex;align-items:center;justify-content:center;">
         <div style="width:600px;height:500px;" hx-get="show"
             hx-trigger=" revealed change delay:200ms ">
             <div class="htmx-indicator">Loading..</div>
