@@ -86,7 +86,6 @@ def LikeView(request):
             class_rm = "btn-outline-success"
             post.save()
 
-
         context = {
             'result': result,
             "like_unlike": like_unlike,
@@ -112,25 +111,47 @@ def getComments(request, id):
     #         return redirect("post_detail", id=id)
     # else:
     #     form = CommentForm()
-    #     print("no Comments")   
-   
+    #     print("no Comments")
+    
+    # comments_id = request.POST.get("comments_id")
     the_comments = Posts.objects.get(id=id)
     comment = request.POST.get("comment")
+    context = {
+        # "form": form,
+        "comments": the_comments
+    }
     print(str(the_comments))
     if request.method == "POST":
         comnt = Comments(comment=comment, user=request.user, post=the_comments)
         comnt.save()
         return redirect("post_detail", id=id)
-    # if request.htmx:
-    #     print("htmx comment")
-    #     return render(request, "comments_show.html")
-    context =  { 
+    if request.htmx:
+        print("htmx comment")
+        return render(request, "comment_partial.html", context)
+   
+    return render(request, "comments_show.html", context)
+
+
+def post_comment(request,id):
+    comments_id = request.POST.get("comments_id")
+    print("comments id is ", comments_id)
+    the_comments = Posts.objects.get(id=id)
+    comment = request.POST.get("comment")
+
+    
+
+    if request.method == "POST":
+        comnt = Comments(comment=comment, user=request.user, post=the_comments)
+        comnt.save()
+        return redirect("post_detail", id=id)
+    context = {
         # "form": form,
         "comments": the_comments
-    }    
-    return render(request, "comments_show.html",context)
-
-
+    }
+    if request.htmx:
+        print("htmx comment")
+        return render(request, "comment_partial.html", context)
+    return render(request, "comments_show.html", context)
 @login_required
 def create_post(request):
     form = postCreateForm
@@ -150,3 +171,17 @@ def create_post(request):
         "form": form
     }
     return render(request, "create_post.html", context)
+
+
+def delete_post(request, id):
+    post = get_object_or_404(Posts, id=id)
+    context = {
+        "post": post
+    }
+    if request.method == "POST":
+        #post_id = request.POST.get("post_id_delete")
+
+        post.delete()
+        return redirect("home")
+
+    return render(request, "delete_post.html", context)

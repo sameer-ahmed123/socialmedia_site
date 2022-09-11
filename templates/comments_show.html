@@ -16,11 +16,12 @@
         {% endif %}
         <strong>{{comments.post_name}}</strong>
 
-        <form method="post" action="">
+        {% include "comment_partial.html" %}
+        <!-- <form method="post" action="">
             {% csrf_token %}
             <input type="text" name="comment">
             <input type="submit" value="comment">
-        </form>
+        </form> -->
 
         <div style="height: 500px;overflow-y:auto;overflow-x: hidden;">
             {% for comments in comments.comments.all %}

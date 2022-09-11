@@ -1,4 +1,5 @@
 {% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,11 +14,20 @@
     </form>
     <div style="padding: 5%;" class="content">
         <p>{{obj.user}}</p>
+
+        <br>
+        {% if obj.user == request.user %}
+        <a href="{% url 'post_delete' obj.id %}">delete post</a>
+        {% endif %}
+
+        <br>
+
         <p>{{obj.name}}</p>
         {% if obj.image.url|slice:"-4:" == ".mp4" %}
-        <video style="border-radius: 5px;"  data-src="{{  obj.image.url  }}" controls height="250px" width="100%"></video>
+        <video style="border-radius: 5px;" data-src="{{  obj.image.url  }}" controls height="250px"
+            width="100%"></video>
         {% else %}
-        <img  style="border-radius: 5px;" width="100%" data-src="{{  obj.image.url  }}" alt="Image ">
+        <img style="border-radius: 5px;" width="100%" data-src="{{  obj.image.url  }}" alt="Image ">
         {% endif %}
         <p>{{obj.desription}}</p>
         <!-- <p id="likes_me{{obj.id}}">hi</p> -->
@@ -27,7 +37,10 @@
     <div id="like-div">
         {% include "partial.html" %}
     </div>
-    <a href='{% url "post_detail" obj.id  %}' class="btn btn-outline-dark mt-4" >comment</a>
+    <div hx-boost="false">
+        <a href='{% url "post_detail" obj.id  %}' class="btn btn-outline-dark mt-4">comment</a>
+
+    </div>
 
     <!-- ADD THE ABILITY TO UPLOAD VIDDEOS -->
 
@@ -72,7 +85,7 @@
 
     const img_observer = new IntersectionObserver((entries, img_observer) => {
         entries.forEach(entry => {
-            if(!entry.isIntersecting) {
+            if (!entry.isIntersecting) {
                 return;
             }
             else {
@@ -81,9 +94,9 @@
             }
         })
     }, imgOptions)
-    
+
     images.forEach(image => {
         img_observer.observe(image)
     })
-    
+
 </script>

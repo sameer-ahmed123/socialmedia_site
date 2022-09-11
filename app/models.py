@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 # Create your models here.
 
@@ -19,6 +20,11 @@ class Posts(models.Model):
         db_table = "Posts"
         ordering = ["-date_added"]
 
+    def get_comment_url(self):
+        kwargs = {
+            "id" :self.id
+        }    
+        return reverse("post-comment", kwargs=kwargs)
 
 class Comments(models.Model):
     post = models.ForeignKey(Posts, related_name="comments", on_delete=models.CASCADE)
@@ -29,5 +35,7 @@ class Comments(models.Model):
     class Meta:
         db_table = "Comments"
         ordering = ['-id']
-        
+
+
+   
 

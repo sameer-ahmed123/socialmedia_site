@@ -150,7 +150,7 @@
                     action: 'post'
                 },
                 success: (json) => {
-                    $('#like_count' + $(this).data("post-id")).html("liked by" + " " + json['result'] + " " + "people")
+                    $('#like_count' + $(this).data("post-id")).html("Liked by" + " " + json['result'] + " " + "people")
                     $(this).html(json['like_unlike'])
                     $(this).addClass(json['class_state'])
                     $(this).removeClass(json['class_rm'])
