@@ -1,19 +1,24 @@
-<h1>Create a post</h1>
+<h1>Edit</h1>
 <h2>and share your expirences with the world</h2>
 
 
-<form style="margin-top: 300px;" method="post" enctype="multipart/form-data">
+<form style="margin-top: 300px;" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{form.as_p}}
     <input type="submit" value="post">
 </form>
 
-<div style="border: 1px solid #000;border-radius:px;height:400px;width:500px;background-position:center;background-size:100% 90%;background-repeat: no-repeat;" id="img_display">
+
+
+<div style="border: 1px solid #000;border-radius:px;height:400px;width:500px;background-position:center;background-size:100% 90%;background-repeat: no-repeat;"
+    id="img_display">
 
 </div>
 
 
 <script>
+    var at_first = document.querySelector("#img_display").style.backgroundImage = `url({{post.image.url}})`
+
     const image = document.querySelector("#id_image");
     var uploaded_image = "";
     const display = document.querySelector("#img_dispaly");

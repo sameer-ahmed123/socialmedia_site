@@ -131,7 +131,6 @@ def getComments(request, id):
    
     return render(request, "comments_show.html", context)
 
-
 def post_comment(request,id):
     comments_id = request.POST.get("comments_id")
     print("comments id is ", comments_id)
@@ -152,6 +151,21 @@ def post_comment(request,id):
         print("htmx comment")
         return render(request, "comment_partial.html", context)
     return render(request, "comments_show.html", context)
+
+def delete_post(request, id):
+    post = get_object_or_404(Posts, id=id)
+    context = {
+        "post": post
+    }
+    if request.method == "POST":
+        #post_id = request.POST.get("post_id_delete")
+
+        post.delete()
+        return redirect("home")
+
+    return render(request, "delete_post.html", context)
+
+
 @login_required
 def create_post(request):
     form = postCreateForm
@@ -173,15 +187,22 @@ def create_post(request):
     return render(request, "create_post.html", context)
 
 
-def delete_post(request, id):
-    post = get_object_or_404(Posts, id=id)
+def edit_post(request, id):
+    post = get_object_or_404(Posts, id=id, user=request.user)
+    print(str(post))
+    form = postCreateForm(request.POST or None,request.FILES or None, instance=post)
+    
+    # form = postCreateForm(request.POST, request.FILES)
+    if form.is_valid():
+        form.save()
+        print("saving")
+        return redirect("home")
+    # else:
+    #     form = postCreateForm()
+    #     print("not saving")
+
     context = {
+        "form": form,
         "post": post
     }
-    if request.method == "POST":
-        #post_id = request.POST.get("post_id_delete")
-
-        post.delete()
-        return redirect("home")
-
-    return render(request, "delete_post.html", context)
+    return render(request, "edit_post.html", context)

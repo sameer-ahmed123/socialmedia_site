@@ -18,16 +18,17 @@
         <br>
         {% if obj.user == request.user %}
         <a href="{% url 'post_delete' obj.id %}">delete post</a>
+        <a href="{% url 'edit_post' obj.id %}">Edit</a>
         {% endif %}
 
         <br>
 
-        <p>{{obj.name}}</p>
+        <p>{{obj.post_name}}</p>
         {% if obj.image.url|slice:"-4:" == ".mp4" %}
         <video style="border-radius: 5px;" data-src="{{  obj.image.url  }}" controls height="250px"
             width="100%"></video>
         {% else %}
-        <img style="border-radius: 5px;" width="100%" data-src="{{  obj.image.url  }}" alt="Image ">
+        <img class="img-fluid" style="border-radius: 5px;" width="100%" data-src="{{  obj.image.url  }}" alt="Image ">
         {% endif %}
         <p>{{obj.desription}}</p>
         <!-- <p id="likes_me{{obj.id}}">hi</p> -->
