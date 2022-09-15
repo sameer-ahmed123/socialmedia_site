@@ -1,7 +1,9 @@
+from email import message
+from pyexpat.errors import messages
 from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from app.forms import login_form, postCreateForm, CommentForm
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 from django.urls import reverse_lazy, reverse
 from .models import Posts, Comments
 from django.http import HttpResponseRedirect, JsonResponse
@@ -33,14 +35,35 @@ def index(request):
 def login_view(request):
     form = login_form
     if request.method == "POST":
-        form = login_form(request, data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username = username, password = password)
+
+        if user is not None:
             login(request, user)
-            print("logedin as", user)
-            return redirect("home")
-    else:
-        form = login_form(request)
+            print(user)
+            return JsonResponse({
+                "status": "user logged in , Redirecting",
+                
+              })
+        else:
+            return JsonResponse({
+                "status": "Invalid Credentials",
+                
+              })
+
+
+              
+    # if request.method == "POST":
+    #     form = login_form(request, data=request.POST)
+    #     if form.is_valid():
+    #         user = form.get_user()
+    #         login(request, user)
+    #         print("logedin as", user)
+    #         return redirect("home")
+    # else:
+    #     form = login_form(request)
     context = {
         "form": form
     }
@@ -120,34 +143,36 @@ def getComments(request, id):
         # "form": form,
         "comments": the_comments
     }
-    print(str(the_comments))
-    if request.method == "POST":
-        comnt = Comments(comment=comment, user=request.user, post=the_comments)
-        comnt.save()
-        return redirect("post_detail", id=id)
-    if request.htmx:
-        print("htmx comment")
-        return render(request, "comment_partial.html", context)
+    # print(str(the_comments))
+    # if request.method == "POST":
+    #     comnt = Comments(comment=comment, user=request.user, post=the_comments)
+    #     comnt.save()
+    #     return redirect("post_detail", id=id)
+    # if request.htmx:
+    #     print("htmx comment")
+    #     return render(request, "comment_partial.html", context)
    
     return render(request, "comments_show.html", context)
 
 def post_comment(request,id):
+    result = ''
     comments_id = request.POST.get("comments_id")
     print("comments id is ", comments_id)
     the_comments = Posts.objects.get(id=id)
     comment = request.POST.get("comment")
 
-    
-
-    if request.method == "POST":
-        comnt = Comments(comment=comment, user=request.user, post=the_comments)
-        comnt.save()
-        return redirect("post_detail", id=id)
     context = {
         # "form": form,
-        "comments": the_comments
+        "comments": the_comments,
     }
+    data = {
+        "result": result
+    }
+
     if request.htmx:
+        if request.method == "POST":
+            comnt = Comments(comment=comment, user=request.user, post=the_comments)
+            comnt.save()
         print("htmx comment")
         return render(request, "comment_partial.html", context)
     return render(request, "comments_show.html", context)

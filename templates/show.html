@@ -38,9 +38,8 @@
     <div id="like-div">
         {% include "partial.html" %}
     </div>
-    <div hx-boost="false">
+     <div hx-boost="ture"><!-- #false -->
         <a href='{% url "post_detail" obj.id  %}' class="btn btn-outline-dark mt-4">comment</a>
-
     </div>
 
     <!-- ADD THE ABILITY TO UPLOAD VIDDEOS -->
@@ -63,7 +62,7 @@
 {% endfor %}
 
 {% else %}
-<h1 style="background:skyblue;text-align:center;">No Posts available</h1>
+<h1 style="background:skyblue;text-align:center;margin-top: 200px;">No Posts available</h1>
 {% endif %}
 
 
