@@ -17,7 +17,7 @@
 
         <br>
         {% if obj.user == request.user %}
-        <a href="{% url 'post_delete' obj.id %}">delete post</a>
+        <a style="color:red" href="{% url 'post_delete' obj.id %}">delete post</a>
         <a href="{% url 'edit_post' obj.id %}">Edit</a>
         {% endif %}
 

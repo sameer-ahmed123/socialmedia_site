@@ -231,3 +231,8 @@ def edit_post(request, id):
         "post": post
     }
     return render(request, "edit_post.html", context)
+
+def Purge(request):
+    post = Posts.objects.all()
+    post.delete()
+    return render(request, "index.html", {"post":post})
