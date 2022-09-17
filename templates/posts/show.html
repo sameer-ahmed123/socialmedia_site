@@ -8,21 +8,12 @@
 {% if obj %}
 {% for obj in obj %}
 <div
-    style="border-radius:5px;margin-bottom:35px;padding:1rem;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;margin-top:150px; ">
+    style="border-radius:5px;margin-bottom:25px;padding:1rem;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;margin-top:150px; ">
     <form method="post">
         <input hidden value="{{obj.id}}" name="liked_post_id">
     </form>
     <div style="padding: 5%;" class="content">
         <p>{{obj.user}}</p>
-
-        <br>
-        {% if obj.user == request.user %}
-        <a style="color:red" href="{% url 'post_delete' obj.id %}">delete post</a>
-        <a href="{% url 'edit_post' obj.id %}">Edit</a>
-        {% endif %}
-
-        <br>
-
         <p>{{obj.post_name}}</p>
         {% if obj.image.url|slice:"-4:" == ".mp4" %}
         <video style="border-radius: 5px;" data-src="{{  obj.image.url  }}" controls height="250px"
@@ -33,17 +24,21 @@
         <p>{{obj.desription}}</p>
         <!-- <p id="likes_me{{obj.id}}">hi</p> -->
     </div>
-
-
     <div id="like-div">
-        {% include "partial.html" %}
+        {% include "posts/likes/partial.html" %}
     </div>
-     <div hx-boost="ture"><!-- #false -->
+    <div hx-boost="true">
+        <!-- #false -->
         <a href='{% url "post_detail" obj.id  %}' class="btn btn-outline-dark mt-4">comment</a>
     </div>
 
     <!-- ADD THE ABILITY TO UPLOAD VIDDEOS -->
-
+    <div style="width: 100%;display: flex;justify-content:flex-end;gap:10px ;">
+        {% if obj.user == request.user %}
+        <a hx-boost="true" style="color:red;text-align: right;" href="{% url 'post_delete' obj.id %}">delete post</a>
+        <a hx-boost="true" style="text-align: right;" href="{% url 'edit_post' obj.id %}">Edit</a>
+        {% endif %}
+    </div>
 </div>
 <!-- <script>
     // needs to be inside the for loop

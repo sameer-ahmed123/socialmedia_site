@@ -16,21 +16,17 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def index(request):
     obj = Posts.objects.all()
-    if request.method == "POST":
-        logout(request)
-        return redirect("login_view")
     context = {
         "obj": obj
     }
 
-    return render(request, "index.html", context)
+    return render(request, "posts/index.html", context)
 
-# def logout_view(request):
-#     if request.method == "POST":
-#         logout(request)
-#         return redirect("home")
-#     return render(request, "logout.html")
-
+def logout_view(request):
+    if request.method == "POST":
+        logout(request)
+        return redirect("home")
+    return render(request, "authentication/logout.html")
 
 def login_view(request):
     form = login_form
@@ -53,21 +49,10 @@ def login_view(request):
                 
               })
 
-
-              
-    # if request.method == "POST":
-    #     form = login_form(request, data=request.POST)
-    #     if form.is_valid():
-    #         user = form.get_user()
-    #         login(request, user)
-    #         print("logedin as", user)
-    #         return redirect("home")
-    # else:
-    #     form = login_form(request)
     context = {
         "form": form
     }
-    return render(request, "login.html", context)
+    return render(request, "authentication/login.html", context)
 
 
 def show(request, *args, **kwargs):
@@ -80,7 +65,7 @@ def show(request, *args, **kwargs):
         "obj": obj,
     }
 
-    return render(request, "show.html", context)
+    return render(request, "posts/show.html", context)
 
 
 @csrf_exempt
@@ -118,41 +103,12 @@ def LikeView(request):
 
         return JsonResponse(context)
 
-
 def getComments(request, id):
-    # the_comments = Posts.objects.get(id=id)
-    # form = CommentForm
-    #   #make comment form to post comments
-    # if request.method == "POST":
-    #     form = CommentForm( request.POST)
-    #     if form.is_valid():#post_name
-    #         obj = form.save(commit=False)
-    #         obj.user = request.user
-    #         obj.post = the_comments
-    #         obj.save()
-    #         # redirect("post_detail", id=the_comments.id)
-    #         return redirect("post_detail", id=id)
-    # else:
-    #     form = CommentForm()
-    #     print("no Comments")
-    
-    # comments_id = request.POST.get("comments_id")
     the_comments = Posts.objects.get(id=id)
-    comment = request.POST.get("comment")
     context = {
-        # "form": form,
         "comments": the_comments
     }
-    # print(str(the_comments))
-    # if request.method == "POST":
-    #     comnt = Comments(comment=comment, user=request.user, post=the_comments)
-    #     comnt.save()
-    #     return redirect("post_detail", id=id)
-    # if request.htmx:
-    #     print("htmx comment")
-    #     return render(request, "comment_partial.html", context)
-   
-    return render(request, "comments_show.html", context)
+    return render(request, "posts/comments/comments_show.html", context)
 
 def post_comment(request,id):
     result = ''
@@ -162,20 +118,18 @@ def post_comment(request,id):
     comment = request.POST.get("comment")
 
     context = {
-        # "form": form,
         "comments": the_comments,
     }
     data = {
         "result": result
     }
-
     if request.htmx:
         if request.method == "POST":
             comnt = Comments(comment=comment, user=request.user, post=the_comments)
             comnt.save()
         print("htmx comment")
-        return render(request, "comment_partial.html", context)
-    return render(request, "comments_show.html", context)
+        return render(request, "posts/comments/comment_partial.html", context)
+    return render(request, "posts/comments/comments_show.html", context)
 
 def delete_post(request, id):
     post = get_object_or_404(Posts, id=id)
@@ -183,12 +137,10 @@ def delete_post(request, id):
         "post": post
     }
     if request.method == "POST":
-        #post_id = request.POST.get("post_id_delete")
-
         post.delete()
         return redirect("home")
 
-    return render(request, "delete_post.html", context)
+    return render(request, "posts/delete_post.html", context)
 
 
 @login_required
@@ -209,7 +161,7 @@ def create_post(request):
     context = {
         "form": form
     }
-    return render(request, "create_post.html", context)
+    return render(request, "posts/create_post.html", context)
 
 
 def edit_post(request, id):
@@ -217,22 +169,17 @@ def edit_post(request, id):
     print(str(post))
     form = postCreateForm(request.POST or None,request.FILES or None, instance=post)
     
-    # form = postCreateForm(request.POST, request.FILES)
     if form.is_valid():
         form.save()
         print("saving")
         return redirect("home")
-    # else:
-    #     form = postCreateForm()
-    #     print("not saving")
-
     context = {
         "form": form,
         "post": post
     }
-    return render(request, "edit_post.html", context)
+    return render(request, "posts/edit_post.html", context)
 
 def Purge(request):
     post = Posts.objects.all()
     post.delete()
-    return render(request, "index.html", {"post":post})
+    return render(request, "posts/index.html", {"post":post})
