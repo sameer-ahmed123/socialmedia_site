@@ -1,19 +1,85 @@
-<h1>Edit</h1>
-<h2>and share your expirences with the world</h2>
+{% extends "base.html" %}
+{% block content %}
+
+<head>
+    <style>
+        .post_creation_section {
+            margin: 2%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            place-items: center;
+            align-items: center;
+            padding: 5%;
+        }
+
+        .post_creation_form {
+            height: 80%;
+            flex-wrap: wrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .post_form {
+            padding: 1rem;
+            height: 400px;
+            
+        }
+
+        @media screen and (max-width:786px) {
+            .post_creation_section {
+            margin-top: 30%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            place-items: center;
+            align-items: center;
+            padding: 10%;
+        }
+        }
+        @media screen and (max-width:989px) {
+            .post_creation_section {
+            margin-top: 30%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            place-items: center;
+            align-items: center;
+            padding: 10%;
+        }
+        }
+    </style>
+
+</head>
 
 
-<form style="margin-top: 300px;" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="post">
-</form>
 
 
+<section class="post_creation_section">
+    <div style="text-align: center;">
+        <h1>Edit Post</h1>
+        
+    </div>
 
-<div style="border: 1px solid #000;border-radius:px;height:400px;width:500px;background-position:center;background-size:100% 90%;background-repeat: no-repeat;"
-    id="img_display">
+    <div class="post_creation_form">
+        <div>
+            <form class="post_form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input class="btn btn-success" type="submit" value="Save">
+            </form>
+        </div>
+        <div style="border: 1px solid #000;border-radius:5px;height:400px;width:500px;background-position:center;background-size:100% 90%;background-repeat: no-repeat;"
+            id="img_display">
 
-</div>
+        </div>
+    </div>
+</section>
 
 
 <script>
@@ -33,3 +99,5 @@
         reader.readAsDataURL(this.files[0]);
     })
 </script>
+
+{% endblock %}

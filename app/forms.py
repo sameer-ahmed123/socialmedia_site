@@ -18,7 +18,11 @@ class postCreateForm(forms.ModelForm):
             'desription',
             'image'
         )
-
+        widgets = {
+             'post_name': forms.TextInput(attrs={"class": "form-control "}),
+            'desription': forms.Textarea(attrs={"class": "form-control ", "rows":4}),
+            'image': forms.FileInput(attrs={"class": "form-control"})
+        }
     
 class CommentForm(forms.ModelForm):
     class Meta:
