@@ -6,11 +6,11 @@
 
 
 {% if obj.like_count == 1 %}
-<span  id="like_count{{ obj.id }}" >Liked by {{obj.like_count}} person </span>
+<span  id="like_count{{ obj.id }}" >Liked by {{obj.like_formatted}} person </span>
 {% elif obj.like_count == 0 %}
-<span  id="like_count{{ obj.id }}" >Liked by {{obj.like_count}} people </span>
+<span  id="like_count{{ obj.id }}" >Liked by {{obj.like_formatted}} people </span>
 {% elif obj.like_count > 1 %}
-<span  id="like_count{{ obj.id }}">Liked by {{obj.like_count}} people </span>
+<span  id="like_count{{ obj.id }}">Liked by {{obj.like_formatted}} people </span>
 {% endif %}
 
 

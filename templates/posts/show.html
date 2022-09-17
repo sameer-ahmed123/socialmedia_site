@@ -15,6 +15,7 @@
     <div style="padding: 5%;" class="content">
         <p>{{obj.user}}</p>
         <p>{{obj.post_name}}</p>
+     
         {% if obj.image.url|slice:"-4:" == ".mp4" %}
         <video style="border-radius: 5px;" data-src="{{  obj.image.url  }}" controls height="250px"
             width="100%"></video>

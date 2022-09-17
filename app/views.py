@@ -1,5 +1,6 @@
 from email import message
 from pyexpat.errors import messages
+from turtle import pos
 from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from app.forms import login_form, postCreateForm, CommentForm
@@ -9,6 +10,8 @@ from .models import Posts, Comments
 from django.http import HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+
+
 
 # Create your views here.
 
@@ -58,15 +61,19 @@ def login_view(request):
 def show(request, *args, **kwargs):
     try:
         obj = Posts.objects.all()
+        
+        # numerized = numerize.numerize(int(obj.like_count))
+        # likes = numerized
+        # print("total number of likes", likes)   
     except:
         return HttpResponse("No Posts Found !!!")
-
+    
     context = {
         "obj": obj,
+        # "likes": likes
     }
 
     return render(request, "posts/show.html", context)
-
 
 @csrf_exempt
 def LikeView(request):
@@ -76,11 +83,15 @@ def LikeView(request):
         like_unlike = ''
         class_rm = ''
         id = request.POST.get('postid')
+       # a= numerize.numerize(1000000)
+        # print(a)
+        
         post = get_object_or_404(Posts, id=id)
         if request.user in post.like.all():
             post.like.remove(request.user)
             post.like_count -= 1
-            result = post.like_count
+            numerized = post.like_formatted()
+            result = numerized
             like_unlike = "like"
             class_state = "btn-outline-success "
             class_rm = "btn-outline-danger"
@@ -88,7 +99,9 @@ def LikeView(request):
         else:
             post.like.add(request.user)
             post.like_count += 1
-            result = post.like_count
+            numerized = post.like_formatted()
+            result = numerized
+            # result = post.like_count
             like_unlike = "Unlike"
             class_state = "btn-outline-danger "
             class_rm = "btn-outline-success"
