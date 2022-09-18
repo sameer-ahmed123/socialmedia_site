@@ -3,13 +3,14 @@ from pyexpat.errors import messages
 from turtle import pos
 from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from app.forms import login_form, postCreateForm, CommentForm
+from app.forms import login_form, postCreateForm, RegisterForm
 from django.contrib.auth import login, logout, authenticate
 from django.urls import reverse_lazy, reverse
 from .models import Posts, Comments
 from django.http import HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 
@@ -57,20 +58,31 @@ def login_view(request):
     }
     return render(request, "authentication/login.html", context)
 
+def register_view(request):
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, "Registration Complete")
+            return redirect("home")
+        else:
+            messages.error(request, "Unsuccessful Registration , please try again")
+    else:
+        form = RegisterForm()
+    return render(request, 'authentication/register.html', {"form":form})
 
 def show(request, *args, **kwargs):
     try:
         obj = Posts.objects.all()
         
-        # numerized = numerize.numerize(int(obj.like_count))
-        # likes = numerized
-        # print("total number of likes", likes)   
+        
     except:
         return HttpResponse("No Posts Found !!!")
     
     context = {
         "obj": obj,
-        # "likes": likes
+        
     }
 
     return render(request, "posts/show.html", context)
