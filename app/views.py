@@ -30,7 +30,7 @@ def logout_view(request):
     if request.method == "POST":
         logout(request)
         return redirect("home")
-    return render(request, "authentication/logout.html")
+    return render(request, "account/logout.html")
 
 def login_view(request):
     form = login_form
@@ -56,7 +56,7 @@ def login_view(request):
     context = {
         "form": form
     }
-    return render(request, "authentication/login.html", context)
+    return render(request, "account/login.html", context)
 
 def register_view(request):
     if request.method == "POST":
@@ -70,7 +70,7 @@ def register_view(request):
             messages.error(request, "Unsuccessful Registration , please try again")
     else:
         form = RegisterForm()
-    return render(request, 'authentication/register.html', {"form":form})
+    return render(request, 'account/register.html', {"form":form})
 
 def show(request, *args, **kwargs):
     try:
