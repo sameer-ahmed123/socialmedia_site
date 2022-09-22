@@ -18,7 +18,6 @@ class RegisterForm(UserCreationForm):
         fields = ("username", "email", "password1", "password2")
         widgets = {
             'username': forms.TextInput(attrs={"class": "form-control "}),
-            
             'password1': forms.TextInput(attrs={"class": "form-control"}),
             'password2': forms.TextInput(attrs={"class": "form-control"})
 

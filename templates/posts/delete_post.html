@@ -11,10 +11,10 @@
 
 <div style="height: 100vh;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;">
 
-    <form method="post" action=".">
+    <form method="post" action="." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap: 10px;">
         {% csrf_token %}
         <h2>Are you sure you want to delete, "{{post.post_name}}"  ?</h2>
-        <input class="logout_btn delete_confermation_btn" style="width: 100%;" type="submit" value="delete">
+        <input class="logout_btn delete_confermation_btn"  type="submit" value="delete">
     </form>
     <a  href="{% url 'home' %}" class="to_home" type="submit">Go Back</a> <!-- same issue as home-link on navbar base.html-->
 </div>

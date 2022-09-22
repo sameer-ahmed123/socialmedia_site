@@ -46,10 +46,11 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
     'allauth.socialaccount.providers.google',
+    'social_django',
     'app',
 ]
 
-SITE_ID = 2
+SITE_ID = 3
 
 SOCIALACCOUNT_LOGIN_ON_GET=True
 
@@ -77,6 +78,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                 # Add the following two
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -120,9 +125,15 @@ DATABASES = {
 # }
 
 
+
+SOCIAL_AUTH_GITHUB_KEY = os.environ.get("GITHUB_KEY")
+SOCIAL_AUTH_GITHUB_SECRET = os.environ.get("GITHUB_SECRET")
+
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.github.GithubOAuth2',
+    
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
@@ -173,6 +184,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "Image")
 
 
 LOGIN_URL = "/login"
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
