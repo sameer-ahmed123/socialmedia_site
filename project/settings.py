@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'social_django',
     'app',
+    'profiles',
 ]
 
 SITE_ID = 3
@@ -89,6 +90,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
+
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 15
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases

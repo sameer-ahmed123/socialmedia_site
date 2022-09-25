@@ -5,9 +5,8 @@ from django import forms
 from .models import Posts, Comments, User
 
 class login_form(AuthenticationForm):
-    username = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control form-control-lg ", "id": "id_username","autofocus": True}))
+    username = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control form-control-lg ", "id": "id_username","autofocus": True,"list":"id_usernames"}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={"autocomplete": "current-password","class": "form-control form-control-lg","autofocus": True}))
-
 
 
 class RegisterForm(UserCreationForm):
@@ -17,7 +16,7 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = ("username", "email", "password1", "password2")
         widgets = {
-            'username': forms.TextInput(attrs={"class": "form-control "}),
+            'username': forms.TextInput(attrs={"class": "form-control ", "id":"usernames"}),
             'password1': forms.TextInput(attrs={"class": "form-control"}),
             'password2': forms.TextInput(attrs={"class": "form-control"})
 

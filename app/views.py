@@ -1,6 +1,8 @@
+from ast import arg
 from email import message
 from pyexpat.errors import messages
 from turtle import pos
+from typing_extensions import Self
 from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from app.forms import login_form, postCreateForm, RegisterForm
@@ -11,8 +13,8 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
-
+from django.contrib.auth import get_user_model
+from django.views.decorators.csrf import csrf_protect
 
 # Create your views here.
 
@@ -32,33 +34,35 @@ def logout_view(request):
         return redirect("home")
     return render(request, "account/logout.html")
 
+@csrf_protect
 def login_view(request):
     form = login_form
+    User = get_user_model()
+    users = User.objects.all()[:5]
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
-
-        user = authenticate(request, username = username, password = password)
-
+        user = authenticate(request, username = username, password = password)                    
+                    
         if user is not None:
             login(request, user)
             print(user)
             return JsonResponse({
                 "status": "user logged in , Redirecting",
-                
               })
         else:
             return JsonResponse({
                 "status": "Invalid Credentials",
-                
               })
 
     context = {
-        "form": form
+        "form": form,
+        "users": users
     }
     return render(request, "account/login.html", context)
 
-def register_view(request):
+@csrf_protect
+def register_view(request, backend='django.contrib.auth.backends.ModelBackend'):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():

@@ -40,36 +40,39 @@
                         <div class="col-md-6 col-lg-7 d-flex align-items-center">
                             <div class="card-body p-4 p-lg-5 text-black">
 
-                                <form id="login_form" method="post" >
+                                <form id="login_form" method="post">
                                     <p style="font-size: 16px;height:1rem;color: red;" id="error_message"></p>
                                     {% csrf_token %}
 
-                                    <div class="d-flex align-items-center mb-3 pb-1"
-                                        style="display: flex;align-items:center; justify-content:space-between;">
+                                    <div style="display: flex;align-items:center; justify-content:space-between;">
                                         <div>
                                             <i style="font-size: 32px;margin-right:3px;" class="fa fa-cat"></i>
                                             <span class="h1 fw-bold mb-0">Chatcat </span>
                                         </div>
-
-                                        <div>
+                                        <div style="display:flex;gap:10px;">
                                             <a href="{% provider_login_url 'google' %}">
                                                 <i class="fa fa-google" style="font-size: 32px;"></i>
                                             </a>
 
+                                            <a href="{% url 'social:begin' 'github'  %}?next=/">
+                                                <i class="fa-brands fa-github" style="font-size: 32px;"></i></a>
                                         </div>
-                                        <a href="{% url 'social:begin' 'github'  %}?next=/" class="btn btn-link btn-lg active btn-block">Sign in with GitHub</a>
                                     </div>
 
                                     <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account
                                     </h5>
 
                                     <div class="form-outline mb-4">
-
                                         <!-- <input type="email" id="form2Example17" class="form-control form-control-lg" /> -->
                                         {{form.username}}
                                         <label class="form-label" for="form2Example17">Username</label>
+                                        <!-- <input type="text" name="" id="" list="usernames"> -->
+                                        <datalist id="id_usernames">
+                                            {% for user in users %}
+                                            <option value="{{user.username}}"></option>
+                                            {% endfor %}
+                                        </datalist>
                                     </div>
-
                                     <div class="form-outline mb-4">
                                         <!-- <input type="password" id="form2Example27"
                                             class="form-control form-control-lg" /> -->
@@ -77,17 +80,20 @@
                                         {{form.password}}
                                         <label class="form-label" for="form2Example27">Password</label>
                                     </div>
-
+                                    <div class="form-outline mb-4">                                       
+                                        <input type="checkbox" id="pass_chkbox"> Show Password
+                                    </div>
                                     <div class="pt-1 mb-4">
                                         <button class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
                                     </div>
 
 
-                                    <input type="checkbox" id="pass_chkbox"> Show Password
+                                    
                                     <br>
 
                                     <a class="small text-muted" href="#!">Forgot password?</a>
-                                    <p class="mb-5 pb-lg-2 " style="color: #393f81;">Don't have an account? <a hx-boost="true" href="{% url 'register_view' %}"
+                                    <p class="mb-5 pb-lg-2 " style="color: #393f81;">Don't have an account? <a
+                                            hx-boost="true" href="{% url 'register_view' %}"
                                             style="color: #393f81;"><span style="text-decoration: none;"
                                                 class="to_home">Register here</span></a></p>
                                     <a href="#!" class="small text-muted">Terms of use.</a>
@@ -125,27 +131,27 @@
             type: 'POST',
             url: '{% url "login_view" %}',
             data: {
-                'username': username,
-                'password': password,
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-                action: 'post'
+                 'username': username,
+                 'password': password,
+                 csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                 action: 'post'
             },
             success: function (response) {
                 console.log(response.status)
                 $("#error_message").text(response.status)
-                $("#id_password").addClass("is-invalid"),$("#id_username").addClass("is-invalid")
-                
+                $("#id_password").addClass("is-invalid"), $("#id_username").addClass("is-invalid")
+
 
                 if (response.status == "user logged in , Redirecting") {
                     $("#error_message").text(response.status)
                     $("#error_message").css("color", "#39FF14")
                     $("#error_message").css("font-weight", "500")
-                    $("#id_password").removeClass("is-invalid"),$("#id_username").removeClass("is-invalid")
-                    
-                    $("#id_username").addClass("is-valid"),$("#id_password").addClass("is-valid")
-                    
+                    $("#id_password").removeClass("is-invalid"), $("#id_username").removeClass("is-invalid")
+
+                    $("#id_username").addClass("is-valid"), $("#id_password").addClass("is-valid")
+
                     setTimeout(() => { window.location = "{% url 'home' %}" }, 2000)
-                    
+
                 }
             }
             // success: (json) => {
