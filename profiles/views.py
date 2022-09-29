@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.shortcuts import render, redirect
 from pyexpat.errors import messages
 from django.shortcuts import render
@@ -5,6 +6,7 @@ from profiles.forms import UpdateProfileForm, UpdateUserForm
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
+from profiles.models import Profile
 
 # Create your views here.
 
@@ -31,6 +33,13 @@ def profile_view(request):
                                                           "profile_form": profile_form})
 
 
+def profile_show_view(request, id):
+    profile = Profile.objects.get(id=id)
+    
+    context = {
+        "profile": profile
+    }
+    return render(request , "profiles/profilePage.html", context)
 
 class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
     template_name = 'profiles/change-pass.html'
