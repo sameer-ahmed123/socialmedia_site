@@ -4,17 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-
 {% if obj %}
 {% for obj in obj %}
+
 <div
     style="border-radius:5px;margin-bottom:25px;padding:1rem;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;margin-top:150px; ">
     <form method="post">
         <input hidden value="{{obj.id}}" name="liked_post_id">
     </form>
     <div style="padding: 5%;" class="content">
-        <a hx-boost="true" href="{% url 'show-profile' obj.id %}" style="text-decoration:none;color:#000;">{{obj.user}}</a>
-        <p>{{obj.post_name}}</p>
+            {% for profile in profile %}
+            {% if profile.user == obj.user %}
+            <div style="margin-bottom:5px;">
+                <image src="{{profile.avatar.url}}" style="height:40px;width:40px;border-radius:50%;">
+                    <a hx-boost="true" href="{% url 'show-profile' profile.id %}" style="text-decoration:none;color:#000;">{{obj.user}}</a>
+            </div>
+            {% endif %}
+            {% endfor %}
      
         {% if obj.image.url|slice:"-4:" == ".mp4" %}
         <video style="border-radius: 5px;" data-src="{{  obj.image.url  }}" controls height="250px"
@@ -75,7 +81,7 @@
     }
 
     const imgOptions = {
-        rootMargin: "100px "
+        rootMargin: "-100px "
     }
 
 

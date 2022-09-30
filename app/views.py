@@ -15,6 +15,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.views.decorators.csrf import csrf_protect
+from profiles.models import Profile # used for user profile image
 
 # Create your views here.
 
@@ -79,6 +80,7 @@ def register_view(request, backend='django.contrib.auth.backends.ModelBackend'):
 def show(request, *args, **kwargs):
     try:
         obj = Posts.objects.all()
+        profile = Profile.objects.all()
         
         
     except:
@@ -86,6 +88,7 @@ def show(request, *args, **kwargs):
     
     context = {
         "obj": obj,
+        "profile": profile
         
     }
 
