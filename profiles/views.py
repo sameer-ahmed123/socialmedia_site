@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
 from profiles.models import Profile
+from app.models import Posts
 
 # Create your views here.
 
@@ -35,9 +36,11 @@ def profile_view(request):
 
 def profile_show_view(request, id):
     profile = Profile.objects.get(id=id)
+    posts = Posts.objects.filter(user=profile.user)
     
     context = {
-        "profile": profile
+        "profile": profile,
+        "posts": posts
     }
     return render(request , "profiles/profilePage.html", context)
 

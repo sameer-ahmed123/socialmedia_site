@@ -16,7 +16,7 @@
             {% for profile in profile %}
             {% if profile.user == obj.user %}
             <div style="margin-bottom:5px;">
-                <image src="{{profile.avatar.url}}" style="height:40px;width:40px;border-radius:50%;">
+                <img src="{{profile.avatar.url}}" style="height:40px;width:40px;border-radius:50%;">
                     <a hx-boost="true" href="{% url 'show-profile' profile.id %}" style="text-decoration:none;color:#000;">{{obj.user}}</a>
             </div>
             {% endif %}
@@ -29,7 +29,6 @@
         <img class="img-fluid" style="border-radius: 5px;" width="100%" data-src="{{  obj.image.url  }}" alt="Image ">
         {% endif %}
         <p>{{obj.desription}}</p>
-        <!-- <p id="likes_me{{obj.id}}">hi</p> -->
     </div>
     <div id="like-div">
         {% include "posts/likes/partial.html" %}
@@ -39,7 +38,6 @@
         <a hx-boost="true" href='{% url "post_detail" obj.id  %}' class="btn btn-outline-dark mt-4">comment</a>
     </div>
 
-    <!-- ADD THE ABILITY TO UPLOAD VIDDEOS -->
     <div style="width: 100%;display: flex;justify-content:flex-end;gap:10px ;">
         {% if obj.user == request.user %}
         <a hx-boost="true" style="color:red;text-align: right;" href="{% url 'post_delete' obj.id %}">delete post</a>
@@ -47,20 +45,7 @@
         {% endif %}
     </div>
 </div>
-<!-- <script>
-    // needs to be inside the for loop
 
-    // this portion uses the avascript internationalization api to convert number of likes to other format
-    // such as 2.3k , 1M or even 1.1B
-    
-    var formatter = Intl.NumberFormat('en', { notation: 'compact' })
-    var likeee = document.getElementById("likes_me{{obj.id}}")
-    var the_Numbers = document.getElementById("like_count{{ obj.id }}").value
-    console.log("from partials.html", the_Numbers)
-    var n = formatter.format("{{obj.like_count}}")
-    likeee.innerHTML = n
-    console.log(n)
-</script> -->
 {% endfor %}
 
 {% else %}
@@ -81,9 +66,8 @@
     }
 
     const imgOptions = {
-        rootMargin: "-100px "
+        rootMargin: "100px "
     }
-
 
     const img_observer = new IntersectionObserver((entries, img_observer) => {
         entries.forEach(entry => {

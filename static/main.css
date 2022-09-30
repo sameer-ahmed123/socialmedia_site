@@ -101,3 +101,12 @@
 
 /* End login page */
 /* **************************************************************************************************** */
+
+
+
+/* profile recent posts hover */
+.postss:hover{
+    transform:scale(1.1);
+    cursor: pointer;
+}
+/* end posts hover */
