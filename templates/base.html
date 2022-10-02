@@ -11,6 +11,34 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/a4fbd4b5ce.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'main.css' %}">
+
+    <style>
+        .profile-grid{
+            display: grid;
+            grid-template-columns:1fr 1fr 1fr 1fr;
+            padding:30px;
+            grid-gap:20px;
+        }
+        @media screen and (max-width:1024px) {
+            .profile-grid{
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+            .postss{
+              width: auto;
+            }
+        }
+        @media screen and (max-width:768px) {
+            .profile-grid{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+            .postss{
+              
+            }
+        }
+      
+    </style>
 </head>
 
 <body>
