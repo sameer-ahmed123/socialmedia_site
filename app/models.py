@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from numerize import numerize
+from django.utils.safestring import mark_safe
 # Create your models here.
 
 class Posts(models.Model):
@@ -13,17 +14,21 @@ class Posts(models.Model):
     like_count = models.BigIntegerField(default=0)
     date_added = models.DateField(auto_now_add=True, blank=True)
 
+    def admin_image(self):
+        return mark_safe( '<img src="%s" style="width: 45px; height:45px;border-radius:5px;"/>' % self.image.url)
+    admin_image.allow_tags =True
+
     def __str__(self):
         return self.desription
 
     def like_formatted(self):
-        numerized = numerize.numerize(self.like_count,2)
+        numerized = numerize.numerize(self.like_count,2)  # 2 here is used for notation / e.g 10k, 10M, 10B
         likes = numerized
         return  likes
 
     class Meta:
         db_table = "Posts"
-        ordering = ["-date_added"]
+        ordering = ["-like_count"]
 
     def get_comment_url(self):
         kwargs = {

@@ -5,7 +5,7 @@ from .models import Posts, Comments
 # Register your models here.
 
 class POSTS11(admin.ModelAdmin):
-    list_display = ['desription']
+    list_display = ['admin_image', 'post_name', 'like_count', 'desription', ]
 
 
 admin.site.register(Posts, POSTS11)

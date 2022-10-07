@@ -8,8 +8,9 @@ from profiles.models import Profile
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
     if created:
-        Profile.objects.create(user=instance)
-        
+        User_prof = Profile.objects.create(user=instance)
+        # User_prof.save()
+        User_prof.follows.set([instance.profile.id])
 
 @receiver(post_save, sender=User)
 def save_profile(sender, instance, **kwargs):

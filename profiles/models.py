@@ -7,6 +7,9 @@ from app.models import Posts
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    
+    follows = models.ManyToManyField("self", related_name="followed_by", symmetrical=False, blank=True)  
+    
     avatar = models.ImageField(default="default.jpg", upload_to= "profile_images")
     background_image = models.ImageField(default="default.jpg", upload_to="profile_images/background_images")
     bio = models.TextField()

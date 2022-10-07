@@ -35,7 +35,7 @@ def logout_view(request):
         return redirect("home")
     return render(request, "account/logout.html")
 
-@csrf_protect
+
 def login_view(request):
     form = login_form
     User = get_user_model()
@@ -62,12 +62,14 @@ def login_view(request):
     }
     return render(request, "account/login.html", context)
 
-@csrf_protect
+
 def register_view(request, backend='django.contrib.auth.backends.ModelBackend'):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)
+            user.backend="django.contrib.auth.backends.ModelBackend"
+            user.save()
             login(request, user)
             messages.success(request, "Registration Complete")
             return redirect("home")
