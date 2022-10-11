@@ -23,6 +23,14 @@ class Profile(models.Model):
             img.save(self.avatar.path)
     
     
+    def following_count(self):
+        following_count = self.follows.count()
+        return following_count
+    
+    # def follower_count(self):
+    #     follower_count = self.follows.followed_by.count()
+    #     return follower_count
+    
     def __str__(self):
         return self.user.username
     

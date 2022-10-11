@@ -35,12 +35,31 @@ def profile_view(request):
 
 
 def profile_show_view(request, id):
+    if not hasattr(request.user, 'profile'):
+        missing_profile = Profile(user=request.user)
+        missing_profile.save()
+        
     profile = Profile.objects.get(id=id)
     posts = Posts.objects.filter(user=profile.user)
     
+    if request.method == "POST":
+        current_user_profile = request.user.profile
+        data = request.POST
+        action = data.get("follow")
+        if action == "follow":
+            current_user_profile.follows.add(profile)
+        elif action == "unfollow":
+            current_user_profile.follows.remove(profile)
+        current_user_profile.save()
+    
+    following_count = Profile.following_count(self=profile)
+    # follower_count = Profile.follower_count(self=profile)
+    
     context = {
         "profile": profile,
-        "posts": posts
+        "posts": posts,
+        "following_count":following_count,
+       # "follower_count":follower_count
     }
     return render(request , "profiles/profilePage.html", context)
 

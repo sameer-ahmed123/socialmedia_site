@@ -54,8 +54,38 @@
 {% endif %}
 
 
+<button onclick="scrollToTop()">
+    Click to scroll to top
+</button>
+
 
 <script>
+
+    //goto topbtn
+
+
+    const goTopBtn = document.querySelector('.go-top-btn');
+
+    window.addEventListener('scroll', checkHeight)
+
+    function checkHeight() {
+        if (window.scrollY > 200) {
+            goTopBtn.style.display = "flex"
+        } else {
+            goTopBtn.style.display = "none"
+        }
+    }
+
+    goTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
+    })
+
+
+
+    //image observer lazyload
     const images = document.querySelectorAll("[data-src]");
 
     function preLoadImage(img) {
@@ -77,7 +107,7 @@
             }
             else {
                 preLoadImage(entry.target);
-                image_observer.unobserve(entry.target)
+                img_observer.unobserve(entry.target)
 
             }
         })
