@@ -95,25 +95,30 @@ SESSION_COOKIE_AGE = 60 * 60 * 24 * 15
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+# DATABASES = {
+#     'default': {
+#         # Django MySQL database engine driver class.
+#         'ENGINE': 'django.db.backends.mysql',
+#         # MySQL database host ip.
+#         'HOST': os.environ.get("HOST"),
+#         # port number.
+#         'PORT': os.environ.get("PORT"),
+#         # database name.
+#         'NAME': os.environ.get("NAME"),
+#         # user name.
+#         'USER': os.environ.get("USER"),
+#         # password
+#         'PASSWORD': os.environ.get("PASSWORD"),
+#         # connect options
+#         'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'", },
+#     }
+# }
 DATABASES = {
     'default': {
-        # Django MySQL database engine driver class.
-        'ENGINE': 'django.db.backends.mysql',
-        # MySQL database host ip.
-        'HOST': os.environ.get("HOST"),
-        # port number.
-        'PORT': os.environ.get("PORT"),
-        # database name.
-        'NAME': os.environ.get("NAME"),
-        # user name.
-        'USER': os.environ.get("USER"),
-        # password
-        'PASSWORD': os.environ.get("PASSWORD"),
-        # connect options
-        'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'", },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # DATABASES = {
 #   'default': {

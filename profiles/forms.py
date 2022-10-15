@@ -4,16 +4,17 @@ from django.contrib.auth.models import User
 from profiles.models import Profile
 
 
-class UpdateUserForm(forms.ModelForm):
-    username = forms.CharField(max_length=100,
-                               required=True,
-                               widget=forms.TextInput(attrs={'class': 'form-control'}))
-    email = forms.EmailField(required=True,
-                             widget=forms.TextInput(attrs={'class': 'form-control'}))
+#  I used this class to update the usernames of users in profile edit page ----> should create a diffrent page dedicated for profile edits  and not show profile 
+# class UpdateUserForm(forms.ModelForm):
+#     username = forms.CharField(max_length=100,
+#                                required=True,
+#                                widget=forms.TextInput(attrs={'class': 'form-control'}))
+#     email = forms.EmailField(required=True,
+#                              widget=forms.TextInput(attrs={'class': 'form-control'}))
 
-    class Meta:
-        model = User
-        fields = ['username', 'email']
+#     class Meta:
+#         model = User
+#         fields = ['username', 'email']
 
 
 class UpdateProfileForm(forms.ModelForm):

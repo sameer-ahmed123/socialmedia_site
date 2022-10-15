@@ -2,7 +2,7 @@ from multiprocessing import context
 from django.shortcuts import render, redirect
 from pyexpat.errors import messages
 from django.shortcuts import render
-from profiles.forms import UpdateProfileForm, UpdateUserForm
+from profiles.forms import UpdateProfileForm
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -13,24 +13,24 @@ from app.models import Posts
 
 
 def profile_view(request):
-    user_form = UpdateUserForm()
+    #user_form = UpdateUserForm()
     profile_form = UpdateProfileForm()
     if request.method == "POST":
-        user_form = UpdateUserForm(request.POST, instance=request.user)
+       # user_form = UpdateUserForm(request.POST, instance=request.user)
         profile_form = UpdateProfileForm(
             request.POST, request.FILES, instance=request.user.profile)
 
 
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
+        if  profile_form.is_valid():
+            
             profile_form.save()
             #messages.success(request, "Profile has been updated successfully")
             return redirect("user_profile")
         else:
-            user_form = UpdateUserForm(instance=request.user)
+           # user_form = UpdateUserForm(instance=request.user)
             profile_form = UpdateProfileForm(instance=request.user.profile)
 
-    return render(request, "profiles/profile-page.html", {"user_form": user_form,
+    return render(request, "profiles/profile-page.html", {
                                                           "profile_form": profile_form})
 
 
