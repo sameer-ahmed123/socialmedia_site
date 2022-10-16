@@ -31,7 +31,23 @@ html{
     height: 50px;
   }
 /* end goto top btn */
+/* profile page */
+@media screen and (max-width:998px) {
+   .follow_count{
+    flex-direction: column;
+    align-items: center;
+    justify-content:center;
+    gap: 5px;
+   } 
+   .follow_count_count {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:center;
+   }
+}
 
+/* end profile page */
 /* login page */
 /* End login page */
 

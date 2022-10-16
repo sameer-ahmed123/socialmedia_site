@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 <div style="width: 80%;margin:auto;display:flex;flex-direction:column;align-items:center;">
+    <!-- background-image:url({{profile.background_image.url}});background-repeat: no-repeat; background-size: auto;background-position:center center;object-fit:cover; -->
     <div
-        style="border-radius:4px;margin:auto;width: 100%;height:450px;background-image:url({{profile.background_image.url}});background-repeat: no-repeat; background-size: auto;background-position:center center;object-fit:cover;">
-    
+        style="border-radius:4px;margin:auto;width: 100%;height:450px;">
+        <img src="{{profile.background_image.url}}" style="max-height:100%; width:100%; background-image:url({{profile.background_image.url}});background-repeat: no-repeat; background-size: auto;background-position:center center;object-fit:cover;" alt="">
     </div>
     <div style="width: 100%;height:200px;display:flex;padding:5%;align-items:center;background-color:#fff;">
-        <div style="width: 70%;display:flex;align-items:center;">
+        <div style="width: 100%;display:flex;align-items:center;">
             <div style="width:200px;display:flex;flex-direction:column;align-items:center;">
-                <img style="border-radius: 50%;width: 200px;height:200px;margin-top:-100px;border:5px solid #fff;" src="{{profile.avatar.url}}" alt="">
+                <img style="border-radius: 50%;width: 200px;height: 200px;margin-top:-100px;border:5px solid #fff;" src="{{profile.avatar.url}}" alt="">
                 <strong style="font-size: 34px;">{{profile.user.username}}</strong>
             </div>
             <!-- <div style="width: 500px;height:350px;border-radius:4px;box-shadow: 5px 5px 0 8px rgba(0,0,0, 0.1);">
@@ -18,8 +19,8 @@
 
 
         </div>
-        <div style="width:30% ;display:flex;gap:35px;">
-            <div style="display: flex;flex-direction:column;">
+        <div class="follow_count" style="display:flex;gap:35px;">
+            <div class="follow_count_count" style="display: flex;flex-direction:column;">
                 <h3>Following</h3>
                 <!-- {% for following in profile.follows.all %}
                 <a style="text-decoration: none;color:#000;" href="{% url 'show-profile' following.id %}">{{following}}</a>
@@ -27,7 +28,7 @@
                 <p>{{following_count}}</p>
             </div>
             <br>
-            <div style="display: flex;flex-direction:column;">
+            <div class="follow_count_count" style="display: flex;flex-direction:column;">
                 <h3>Followers</h3>
                 <!-- {% for follower in profile.followed_by.all %}
                 <a style="text-decoration: none;color:#000;" href="{% url 'show-profile' follower.id %}">{{follower}}</a>              
