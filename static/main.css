@@ -152,7 +152,8 @@ html{
 
 /* profile recent posts hover */
 .postss:hover{
-    transform:scale(1.1);
+    transform:scale(1.01);
+    translate: 5px -5px;
     cursor: pointer;
 }
 /* end posts hover */

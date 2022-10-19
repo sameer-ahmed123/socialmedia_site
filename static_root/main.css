@@ -17,8 +17,8 @@ html{
     right: 35px;
     border-radius: 50%;
     cursor: pointer;
-    height: 100px;
-    width: 100px;
+    height: 80px;
+    width: 80px;
     background: #fff;
     border: 3px solid #333;
     display: none;
@@ -27,19 +27,22 @@ html{
   }
   
   .go-top-btn img {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
   }
 /* end goto top btn */
 /* profile page */
-@media screen and (max-width:998px) {
+ @media screen and (max-width:998px) {
    .follow_count{
+    margin-top: 100px;
     flex-direction: column;
     align-items: center;
     justify-content:center;
-    gap: 5px;
+    gap: 0;
+    
    } 
    .follow_count_count {
+    height: 80px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -149,7 +152,7 @@ html{
 
 /* profile recent posts hover */
 .postss:hover{
-    transform:scale(1.1);
+    transform:scale(1.01);
     cursor: pointer;
 }
 /* end posts hover */

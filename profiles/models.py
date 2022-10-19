@@ -10,6 +10,7 @@ class Profile(models.Model):
     
     follows = models.ManyToManyField("self", related_name="followed_by", symmetrical=False, blank=True)  
     
+    is_private = models.BooleanField(default=False)
     avatar = models.ImageField(default="default.jpg", upload_to= "profile_images")
     background_image = models.ImageField(default="default.jpg", upload_to="profile_images/background_images")
     bio = models.TextField()

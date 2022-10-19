@@ -38,9 +38,12 @@ def profile_show_view(request, id):
     if not hasattr(request.user, 'profile'):
         missing_profile = Profile(user=request.user)
         missing_profile.save()
-        
+ 
+ 
     profile = Profile.objects.get(id=id)
     posts = Posts.objects.filter(user=profile.user)
+    
+    
     
     if request.method == "POST":
         current_user_profile = request.user.profile
