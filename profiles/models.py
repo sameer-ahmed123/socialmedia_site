@@ -7,13 +7,18 @@ from app.models import Posts
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=500, blank =True, null=True)
+    last_name = models.CharField(max_length = 500, blank = True, null = True)
+    age = models.IntegerField(blank=True, null=True)
+    bio = models.TextField()
+    country = models.CharField(max_length=500, blank =True, null = True)
+    address = models.CharField(max_length = 500, blank=True, null = True)
     
     follows = models.ManyToManyField("self", related_name="followed_by", symmetrical=False, blank=True)  
-    
     is_private = models.BooleanField(default=False)
-    avatar = models.ImageField(default="default.jpg", upload_to= "profile_images")
-    background_image = models.ImageField(default="default.jpg", upload_to="profile_images/background_images")
-    bio = models.TextField()
+    avatar = models.ImageField(default="default.jpg", upload_to= "profile_images", blank = True , )
+    background_image = models.ImageField(default="default.jpg", upload_to="profile_images/background_images", blank = True )
+    
     def save(self, *args, **kwargs):
         super().save()
         

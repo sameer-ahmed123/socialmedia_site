@@ -37,13 +37,13 @@
                 grid-template-columns: 1fr 1fr;
             }
 
-            
+
         }
     </style>
 </head>
 
 <body>
-    <nav id="navbar" class="navbar navbar-expand-lg sticky-lg-top  navbar-light bg-light">
+    <nav id="navbar" style="opacity: 0.9;" class="navbar navbar-expand-lg sticky-lg-top  navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand"><span><i style="font-size: 32px;margin-right:3px;"
                         class="fa fa-cat"></i></span>Chatcat</a>
@@ -61,7 +61,7 @@
                     <li class="nav-item">
                         <a style="font-size: 18px;" class="nav-link active" aria-current="page"
                             href="{% url 'home' %}">Home</a>
-                        <!-- hx-boost="true"  causing non image-loaded homepge to show up-->
+                        <!--  hx-boost="true"  causing non image-loaded homepge to show up-->
                     </li>
 
                     <li class="nav-item">
@@ -98,8 +98,6 @@
             {% endif %}
         </div>
     </nav>
-
-
 
 
 
@@ -172,7 +170,7 @@
     </div>
 
     <button class="go-top-btn">
-        <img  src="{% static 'arrow-up.png' %}" alt="arrow up">
+        <img src="{% static 'arrow-up.png' %}" alt="arrow up">
     </button>
 
     {% block content %}

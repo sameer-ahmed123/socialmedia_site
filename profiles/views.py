@@ -39,7 +39,8 @@ def profile_show_view(request, id):
         missing_profile = Profile(user=request.user)
         missing_profile.save()
  
- 
+    
+    
     profile = Profile.objects.get(id=id)
     posts = Posts.objects.filter(user=profile.user)
     
