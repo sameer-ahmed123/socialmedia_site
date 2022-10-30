@@ -223,6 +223,8 @@ def Purge(request):
 @login_required
 def favourite_posts(request):
     status = ""
+    remove_icon_state = ""
+    icon_state = ""
     user = request.user
     if request.POST.get('action') == 'post':
         id = request.POST.get('save_postid')
@@ -232,13 +234,19 @@ def favourite_posts(request):
         if user_profile.favorites.filter(id=id).exists():
             user_profile.favorites.remove(post)
             status = "add"
-        else:
+            remove_icon_state = "fa-solid fa-bookmark"
+            icon_state = "fa-regular fa-bookmark"
+        else:   
             user_profile.favorites.add(post)
             status = "remove"
+            remove_icon_state = "fa-regular fa-bookmark"
+            icon_state = "fa-solid fa-bookmark"
        
         context = {
             "status": status,
-            "id": id
+            "id": id,
+            "icon_state": icon_state,
+            "remove_icon_state": remove_icon_state
         }
 
     return JsonResponse(context)

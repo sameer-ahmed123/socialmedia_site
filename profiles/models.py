@@ -17,7 +17,7 @@ class Profile(models.Model):
     follows = models.ManyToManyField("self", related_name="followed_by", symmetrical=False, blank=True)  
     is_private = models.BooleanField(default=False)
     avatar = models.ImageField(default="default.jpg", upload_to= "profile_images", blank = True , )
-    favorites = models.ManyToManyField(Posts)
+    favorites = models.ManyToManyField(Posts ,related_name="saved_posts")
     background_image = models.ImageField(default="default.jpg", upload_to="profile_images/background_images", blank = True )
     
     def save(self, *args, **kwargs):
@@ -28,7 +28,7 @@ class Profile(models.Model):
             new_img = (100, 100)
             img.thumbnail(new_img)
             img.save(self.avatar.path)
-    
+              
     
     def following_count(self):
         following_count = self.follows.count()

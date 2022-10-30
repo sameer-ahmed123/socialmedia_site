@@ -19,7 +19,7 @@ class Posts(models.Model):
     admin_image.allow_tags =True
 
     def __str__(self):
-        return self.desription
+        return self.post_name
 
     def like_formatted(self):
         numerized = numerize.numerize(self.like_count,2)  # 2 here is used for notation / e.g 10k, 10M, 10B
