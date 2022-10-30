@@ -45,6 +45,9 @@
     <div id="like-div">
         {% include "posts/likes/partial.html" %}
     </div>
+    <div id="save-div">
+        {% include "posts/save/partial.html" %}
+    </div>
     <div hx-boost="true">
         <!-- #false -->
         <a hx-boost="true" href='{% url "post_detail" obj.id  %}' class="btn btn-outline-dark mt-4">comment</a>

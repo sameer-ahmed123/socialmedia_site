@@ -207,6 +207,30 @@
                 }
             });
         })
+
+        $(document).on('click', '.btn_2', function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '{% url "save_post" %}',
+                data: {
+                    save_postid: $(this).data("post-id-save"),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                    action: 'post'
+                },
+                success: (json) => {
+                   $('#post_save' + $(this).data("post-id-save")).html( json['status'])
+                   // $(this).html(json['like_unlike'])
+                   // $(this).addClass(json['class_state'])
+                   // $(this).removeClass(json['class_rm'])
+                    //console.log(json)
+                    console.log(json['id'])
+                },
+                error: function (xhr, errmsg, err) {
+                    console.error(xhr, errmsg, err)
+                }
+            });
+        })
     </script>
 
 

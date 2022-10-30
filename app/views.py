@@ -1,5 +1,6 @@
 from ast import arg
 from email import message
+import profile
 from pyexpat.errors import messages
 from turtle import pos
 from typing_extensions import Self
@@ -9,6 +10,7 @@ from app.forms import login_form, postCreateForm, RegisterForm
 from django.contrib.auth import login, logout, authenticate
 from django.urls import reverse_lazy, reverse
 from .models import Posts, Comments
+from profiles.models import Profile
 from django.http import HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
@@ -217,3 +219,27 @@ def Purge(request):
     post = Posts.objects.all()
     post.delete()
     return render(request, "posts/index.html", {"post":post})
+
+@login_required
+def favourite_posts(request):
+    status = ""
+    user = request.user
+    if request.POST.get('action') == 'post':
+        id = request.POST.get('save_postid')
+        user_profile =Profile.objects.get(user=user) 
+        post = get_object_or_404(Posts, id=id)
+
+        if user_profile.favorites.filter(id=id).exists():
+            user_profile.favorites.remove(post)
+            status = "add"
+        else:
+            user_profile.favorites.add(post)
+            status = "remove"
+       
+        context = {
+            "status": status,
+            "id": id
+        }
+
+    return JsonResponse(context)
+    
