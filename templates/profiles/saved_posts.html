@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content%}
+
+
+{% for obj in saved_posts %}
+{% for saved_post in obj.favorites.all %}
+
+
+
+{% if saved_post.image.url|slice:"-4:" == ".mp4" %}
+<div class="postss" style="border-radius:5px;padding:1rem;box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;">
+    <div style="display: flex;flex-direction:column;align-items:center;height: 100%;width:100%;">
+        <video style="border-radius: 5px;" src="{{  saved_post.image.url  }}" controls height="250px"
+            width="100%"></video>
+    </div>
+</div>
+{% else %}
+<div class="postss" style="border-radius:5px;padding:1rem;box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;">
+    <div style="display: flex;flex-direction:column;align-items:center;height: 100%;width:100%;">
+
+        <img class="img-fluid" style="border-radius: 5px;aspect-ratio:1/1;" width="400px" height="350px"
+            src="{{  saved_post.image.url  }}" alt="Image ">
+
+        <strong style="text-align: center;">{{saved_post.desription}}</strong>
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+
+
+{% endblock %}

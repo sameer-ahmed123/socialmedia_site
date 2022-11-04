@@ -43,6 +43,7 @@ def profile_show_view(request, id):
     
     profile = Profile.objects.get(id=id)
     posts = Posts.objects.filter(user=profile.user)
+
     
     
     
@@ -57,13 +58,11 @@ def profile_show_view(request, id):
         current_user_profile.save()
     
     following_count = Profile.following_count(self=profile)
-    # follower_count = Profile.follower_count(self=profile)
     
     context = {
         "profile": profile,
         "posts": posts,
         "following_count":following_count,
-       # "follower_count":follower_count
     }
     return render(request , "profiles/profilePage.html", context)
 
@@ -71,3 +70,16 @@ class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
     template_name = 'profiles/change-pass.html'
     success_message = "Successfully Changed Your Password"
     success_url = reverse_lazy('home')
+    
+    
+def Saved_posts(request):
+    #favorites__in=user_profile.favorites.all()
+    user = request.user
+    # user_profile =Profile.objects.get(user=user)
+    saved_posts = Profile.objects.filter(user=user)
+    
+    context = {
+        "saved_posts": saved_posts,
+    }
+    
+    return render(request, "profiles/saved_posts.html", context)

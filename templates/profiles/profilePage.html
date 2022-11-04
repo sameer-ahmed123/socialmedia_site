@@ -52,7 +52,7 @@
        
     </div>
 
-    {% if profile.is_private == "False" or profile in user.profile.follows.all %}
+    {% if profile.is_private is False or profile in user.profile.follows.all %}
     <div style="padding: 20px;text-align:center;width:100%;">
         <h2>Recent Posts</h2>
         <div class="profile-grid">
@@ -71,6 +71,21 @@
             {% endfor %}
 
         </div>
+
+
+        <a href="{% url 'saved_posts'  %}">Saved Posts</a>
+        <!-- {% for posts in favorites.all %}
+        {% if posts.image.url|slice:"-4:" == ".mp4" %}
+        {% else %}
+        <div class="postss" style="border-radius:5px;padding:1rem;box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;">
+            <div style="display: flex;flex-direction:column;align-items:center;height: 100%;width:100%;">
+                <img class="img-fluid" style="border-radius: 5px;aspect-ratio:1/1;" width="400px" height="350px"
+                    src="{{  posts.image.url  }}" alt="Image ">
+                <strong style="text-align: center;">{{posts.desription}}</strong>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %} -->
     </div>
     {% else %}
     <div>
