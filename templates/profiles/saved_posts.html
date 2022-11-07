@@ -1,33 +1,152 @@
-{% extends 'base.html' %}
-
-{% block content%}
-
-
-{% for obj in saved_posts %}
-{% for saved_post in obj.favorites.all %}
-
-
-
-{% if saved_post.image.url|slice:"-4:" == ".mp4" %}
-<div class="postss" style="border-radius:5px;padding:1rem;box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;">
-    <div style="display: flex;flex-direction:column;align-items:center;height: 100%;width:100%;">
-        <video style="border-radius: 5px;" src="{{  saved_post.image.url  }}" controls height="250px"
-            width="100%"></video>
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div style="width: 80%;margin:auto;display:flex;flex-direction:column;align-items:center;">
+    <!-- background-image:url({{profile.background_image.url}});background-repeat: no-repeat; background-size: auto;background-position:center center;object-fit:cover; -->
+    <div style="border-radius:4px;margin:auto;width: 100%;height:450px;">
+        <img src="{{profile.background_image.url}}"
+            style="border-radius:5px;max-height:100%; width:100%; background-image:url({{profile.background_image.url}});background-repeat: no-repeat; background-size: auto;background-position:center center;object-fit:cover;"
+            alt="">
     </div>
-</div>
-{% else %}
-<div class="postss" style="border-radius:5px;padding:1rem;box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;">
-    <div style="display: flex;flex-direction:column;align-items:center;height: 100%;width:100%;">
+    <div style="width: 100%;height:200px;display:flex;padding:5%;align-items:center;background-color:#fff;">
+        <div style="width: 100%;display:flex;align-items:center;">
+            <div style="width:200px;display:flex;flex-direction:column;align-items:center;">
+                <img style="border-radius: 50%;width: 200px;height: 200px;margin-top:-100px;border:5px solid #fff;"
+                    src="{{profile.avatar.url}}" alt="">
+                <strong style="font-size: 34px;">{{profile.user.username}}</strong>
+            </div>
+            <!-- <div style="width: 500px;height:350px;border-radius:4px;box-shadow: 5px 5px 0 8px rgba(0,0,0, 0.1);">
+                {{profile.bio}}
 
-        <img class="img-fluid" style="border-radius: 5px;aspect-ratio:1/1;" width="400px" height="350px"
-            src="{{  saved_post.image.url  }}" alt="Image ">
+            </div> -->
 
-        <strong style="text-align: center;">{{saved_post.desription}}</strong>
+
+        </div>
+        <div class="follow_count" style="display:flex;gap:35px;">
+            <div class="follow_count_count" style="display: flex;flex-direction:column;">
+                <h3>Following</h3>
+                <!-- {% for following in profile.follows.all %}
+                <a style="text-decoration: none;color:#000;" href="{% url 'show-profile' following.id %}">{{following}}</a>
+                {% endfor %} -->
+                <p>{{following_count}}</p>
+            </div>
+            <br>
+            <div class="follow_count_count" style="display: flex;flex-direction:column;">
+                <h3>Followers</h3>
+                <!-- {% for follower in profile.followed_by.all %}
+                <a style="text-decoration: none;color:#000;" href="{% url 'show-profile' follower.id %}">{{follower}}</a>              
+                {% endfor %} -->
+                <p>{{profile.followed_by.all.count}}</p>
+            </div>
+            <div>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    {% if profile in user.profile.follows.all %}
+                    <button name="follow" value="unfollow" class="btn btn-danger">Unfollow</button>
+                    {% else %}
+                    <button name="follow" value="follow" class="btn btn-success">Follow</button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+        
+        
+
+
     </div>
+
+    
+    <div style="height: 80px;width:100%;border-top:1px solid grey;display:flex;justify-content:center;gap:25px;">
+
+        <a  hx-boost="true" name="get_saved_posts_btn" href="{% url 'show-profile' profile.id  %}"
+            style="height:25px;border:none;background-color:lightgray;border-radius:4px;margin-top:3px;text-decoration:none;color:#000;">Posts</a>
+
+
+        <a hx-boost="true"  id="get_saved_posts_btn" name="get_posts_btn" href="{% url 'saved_posts' profile.id  %}"
+            style="height:25px;border:none;background-color:lightgray;border-radius:4px;margin-top:3px;text-decoration:none;color:#000;">Saved</a>
+
+    </div>
+
+
+    <div id="posts_showing" style="padding: 20px;text-align:center;width:100%;">
+
+
+
+
+
+        <h2>Saved Posts</h2>
+        <div class="profile-grid">
+            {% for obj in saved_posts %}
+            {% for saved_post in obj.favorites.all %}
+            
+            
+            
+            {% if saved_post.image.url|slice:"-4:" == ".mp4" %}
+            <div class="postss" style="border-radius:5px;padding:1rem;box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;">
+                <div style="display: flex;flex-direction:column;align-items:center;height: 100%;width:100%;">
+                    <video style="border-radius: 5px;" src="{{  saved_post.image.url  }}" controls height="250px"
+                        width="100%"></video>
+                        <strong style="text-align: center;">{{saved_post.desription}}</strong>
+                </div>
+            </div>
+            {% else %}
+            <div class="postss" style="border-radius:5px;padding:1rem;box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;">
+                <div style="display: flex;flex-direction:column;align-items:center;height: 100%;width:100%;">
+            
+                    <img class="img-fluid" style="border-radius: 5px;aspect-ratio:1/1;" width="400px" height="350px"
+                        src="{{  saved_post.image.url  }}" alt="Image ">
+            
+                    <strong style="text-align: center;">{{saved_post.desription}}</strong>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+        </div>
+
+        {% if profile.user == request.user %}
+        <a hx-boost="true" href="{% url 'show-profile' profile.id  %}"> Posts</a>
+        {% else %}
+        {% endif %}
+    </div>
+   
+
 </div>
-{% endif %}
-{% endfor %}
-{% endfor %}
+
+
+
+<!-- 
+<div style="height: 100vh;width:100vw;display:flex;align-items:center;justify-content:center">
+    <div>
+        <div>
+            {% for obj in saved_posts %}
+            {% for saved_post in obj.favorites.all %}
+
+
+
+            {% if saved_post.image.url|slice:"-4:" == ".mp4" %}
+            <div class="postss" style="border-radius:5px;padding:1rem;box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;">
+                <div style="display: flex;flex-direction:column;align-items:center;height: 100%;width:100%;">
+                    <video style="border-radius: 5px;" src="{{  saved_post.image.url  }}" controls height="250px"
+                        width="100%"></video>
+                </div>
+            </div>
+            {% else %}
+            <div class="postss" style="border-radius:5px;padding:1rem;box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;">
+                <div style="display: flex;flex-direction:column;align-items:center;height: 100%;width:100%;">
+
+                    <img class="img-fluid" style="border-radius: 5px;aspect-ratio:1/1;" width="400px" height="350px"
+                        src="{{  saved_post.image.url  }}" alt="Image ">
+
+                    <strong style="text-align: center;">{{saved_post.desription}}</strong>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</div> -->
 
 
 

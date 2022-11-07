@@ -8,6 +8,8 @@ from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
 from profiles.models import Profile
 from app.models import Posts
+from django.http import JsonResponse,HttpResponseRedirect
+from django.core import serializers
 
 # Create your views here.
 
@@ -20,9 +22,7 @@ def profile_view(request):
         profile_form = UpdateProfileForm(
             request.POST, request.FILES, instance=request.user.profile)
 
-
         if  profile_form.is_valid():
-            
             profile_form.save()
             #messages.success(request, "Profile has been updated successfully")
             return redirect("user_profile")
@@ -38,14 +38,9 @@ def profile_show_view(request, id):
     if not hasattr(request.user, 'profile'):
         missing_profile = Profile(user=request.user)
         missing_profile.save()
- 
-    
     
     profile = Profile.objects.get(id=id)
     posts = Posts.objects.filter(user=profile.user)
-
-    
-    
     
     if request.method == "POST":
         current_user_profile = request.user.profile
@@ -72,14 +67,26 @@ class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
     success_url = reverse_lazy('home')
     
     
-def Saved_posts(request):
+def Saved_posts(request, id):
     #favorites__in=user_profile.favorites.all()
     user = request.user
+    profile = Profile.objects.get(id=id)
     # user_profile =Profile.objects.get(user=user)
     saved_posts = Profile.objects.filter(user=user)
+    #saved_posts = serializers.serialize("json", Posts.objects.filter(user=user))
+    
+    
+    
+    #after serializing , the unserialized obect , now im getting un defined in the template
+    
+    
+    
     
     context = {
+        "profile": profile,
         "saved_posts": saved_posts,
     }
-    
+    # return HttpResponseRedirect('/saved_posts')
+    #return JsonResponse(context)
+
     return render(request, "profiles/saved_posts.html", context)
