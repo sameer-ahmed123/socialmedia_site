@@ -28,7 +28,7 @@
                 <!-- {% for following in profile.follows.all %}
                 <a style="text-decoration: none;color:#000;" href="{% url 'show-profile' following.id %}">{{following}}</a>
                 {% endfor %} -->
-                <p>{{following_count}}</p>
+                <p>{{profile.following_count}}</p>
             </div>
             <br>
             <div class="follow_count_count" style="display: flex;flex-direction:column;">
@@ -56,6 +56,7 @@
     </div>
 
     
+    {% if profile.user == request.user %}
     <div style="height: 80px;width:100%;border-top:1px solid grey;display:flex;justify-content:center;gap:25px;">
 
         <a  hx-boost="true" name="get_saved_posts_btn" href="{% url 'show-profile' profile.id  %}"
@@ -63,9 +64,11 @@
 
 
         <a hx-boost="true"  id="get_saved_posts_btn" name="get_posts_btn" href="{% url 'saved_posts' profile.id  %}"
-            style="height:25px;border:none;background-color:lightgray;border-radius:4px;margin-top:3px;text-decoration:none;color:#000;">Saved</a>
+            style="height:25px;border:none;background-color:gray;border-radius:4px;margin-top:3px;text-decoration:none;color:#000;">Saved</a>
 
     </div>
+    {% else %}
+    {% endif %}
 
 
     <div id="posts_showing" style="padding: 20px;text-align:center;width:100%;">
