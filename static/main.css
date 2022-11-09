@@ -8,6 +8,16 @@ html{
     scroll-behavior: smooth;
 }
 
+a {
+    text-decoration: none;
+    color: #000;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+p span strong {
+    color: #fff;
+}
 
 /* goto to btn  */
 
@@ -157,3 +167,15 @@ html{
     cursor: pointer;
 }
 /* end posts hover */
+
+/* show page /template */
+
+.content_card{
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+    object-fit: contain;
+}
+
+/* end show page / template */

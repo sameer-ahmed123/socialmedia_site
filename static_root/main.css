@@ -153,6 +153,22 @@ html{
 /* profile recent posts hover */
 .postss:hover{
     transform:scale(1.01);
+    translate: 5px -5px;
     cursor: pointer;
 }
 /* end posts hover */
+
+/* show page /template */
+
+.content_card{
+    background-repeat: no-repeat;
+    background-position:center center;
+    object-fit:fill;
+    /* background-size: auto;
+    
+    
+    width: 100%; */
+
+}
+
+/* end show page / template */
