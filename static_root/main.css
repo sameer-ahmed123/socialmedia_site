@@ -2,12 +2,28 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    overflow-anchor: none !important;
+    scroll-snap-stop: normal !important;
+    overscroll-behavior: unset !important;
+    scroll-behavior: unset !important;
+    
+    
 }
 
 html{
     scroll-behavior: smooth;
 }
 
+a {
+    text-decoration: none;
+    color: #000;
+    font-size: 18px;
+    
+}
+
+p span strong {
+    color: #fff;
+}
 
 /* goto to btn  */
 
@@ -33,7 +49,7 @@ html{
 /* end goto top btn */
 /* profile page */
  @media screen and (max-width:998px) {
-   .follow_count{
+   /* .follow_count{
     margin-top: 100px;
     flex-direction: column;
     align-items: center;
@@ -47,7 +63,7 @@ html{
     flex-direction: row;
     align-items: center;
     justify-content:center;
-   }
+   } */
 }
 
 /* end profile page */
@@ -161,14 +177,11 @@ html{
 /* show page /template */
 
 .content_card{
+    background-position: center;
+    background-size: cover;
     background-repeat: no-repeat;
-    background-position:center center;
-    object-fit:fill;
-    /* background-size: auto;
     
-    
-    width: 100%; */
-
+    object-fit: contain;
 }
 
 /* end show page / template */

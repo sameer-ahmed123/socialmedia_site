@@ -14,7 +14,7 @@ from django.core import serializers
 # Create your views here.
 
 
-def profile_view(request):
+def profile_edit_view(request):
     #user_form = UpdateUserForm()
     profile_form = UpdateProfileForm()
     if request.method == "POST":

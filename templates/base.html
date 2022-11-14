@@ -68,9 +68,7 @@
                         <a hx-boost="true" style="font-size: 18px;" class="nav-link" href="{% url 'create-post' %}">Add
                             post</a>
                     </li>
-                    <li class="nav-item">
-                        <a class='nav-link' href="{% url 'user_profile' %}">my profile</a>
-                    </li>
+                    
                     <li class="nav-item">
                         {% if user.is_superuser %}
                         <a hx-boost="true" style="font-size: 18px;color:red;" class="nav-link" style="color:red"
@@ -184,6 +182,7 @@
 
     <script src="{% static 'jquery-3.6.0.js' %}" type="text/javascript"></script>
     <script>
+       
         $(document).on('click', '.btn_1', function (e) {
             e.preventDefault();
             $.ajax({
@@ -195,7 +194,7 @@
                     action: 'post'
                 },
                 success: (json) => {
-                    $('#like_count{{ obj.id }}' + $(this).data("post-id")).html("Liked by" + " " + json['result'] + " " + "people")
+                    $('#like_count{{ obj.id }}' + $(this).data("post-id")).html( json['result'] + " " + "Likes")
                     $(this).html(json['like_unlike'])
                     $(this).addClass(json['class_state'])
                     $(this).removeClass(json['class_rm'])
@@ -219,8 +218,8 @@
                     action: 'post'
                 },
                 success: (json) => {
-                    $('#icon_save{{ obj.id }}' + $(this).data("post-id-save")).removeClass( json['remove_icon_state'])
-                    $('#icon_save{{ obj.id }}' + $(this).data("post-id-save")).addClass( json['icon_state'])
+                    $('#icon_save{{ obj.id }}' + $(this).data("post-id-save")).removeClass(json['remove_icon_state'])
+                    $('#icon_save{{ obj.id }}' + $(this).data("post-id-save")).addClass(json['icon_state'])
                 },
                 error: function (xhr, errmsg, err) {
                     console.error(xhr, errmsg, err)

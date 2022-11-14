@@ -22,7 +22,7 @@
 
 
         </div>
-        
+
         <div class="follow_count" style="display:flex;gap:35px;">
             <div class="follow_count_count" style="display: flex;flex-direction:column;">
                 <h3>Following</h3>
@@ -39,6 +39,8 @@
                 {% endfor %} -->
                 <p>{{profile.followed_by.all.count}}</p>
             </div>
+            {% if profile.user == request.user %}
+            {% else %}
             <div>
                 <form method="post" action="">
                     {% csrf_token %}
@@ -49,32 +51,38 @@
                     {% endif %}
                 </form>
             </div>
-        </div>       
-
+            {% endif %}
+            <div>
+                <a class="btn btn-warning rounded text-white" style="height:auto;width:50px;" href="{% url 'user_profile' %}">Edit</a>
+            </div>
+        </div>
+     
+            
 
     </div>
 
     {% if profile.is_private is False or profile in user.profile.follows.all %}
-    
-    {% if profile.user == request.user %}
-    <div style="height: 80px;width:100%;border-top:1px solid grey;display:flex;justify-content:center;gap:25px;">
 
-        <a  hx-boost="true" name="get_saved_posts_btn" href="{% url 'show-profile' profile.id  %}"
+    {% if profile.user == request.user %}
+    <div hx-boost="true"
+        style="height: 80px;width:100%;border-top:1px solid grey;display:flex;justify-content:center;gap:25px;">
+
+        <a class="link1"  id="profile_page_link" href="{% url 'show-profile' profile.id  %}"
             style="height:25px;border:none;background-color:gray;border-radius:4px;margin-top:3px;text-decoration:none;color:#000;">Posts</a>
 
 
-        <a hx-boost="true"  id="get_saved_posts_btn" name="get_posts_btn" href="{% url 'saved_posts' profile.id  %}"
+        <a class="link2"  href="{% url 'saved_posts' profile.id  %}"
             style="height:25px;border:none;background-color:lightgray;border-radius:4px;margin-top:3px;text-decoration:none;color:#000;">Saved</a>
 
     </div>
     {% else %}
     {% endif %}
 
-   
+
 
 
     <div id="posts_showing" style="padding: 20px;text-align:center;width:100%;">
-       
+
         <h2>Recent Posts</h2>
         <div class="profile-grid">
             {% for posts in posts %}
@@ -105,38 +113,9 @@
 </div>
 
 
-<!-- <script src="{% static 'jquery-3.6.0.js' %}" type="text/javascript"></script>
-<script>
-    $(document).on('click', '#get_saved_posts_btn', function (e) {
-       // $("#posts_showing").empty();
-        $("#saved_posts_show_div").empty();
 
-        $.ajax({
-            type: 'GET',
-            url: "",
-            dataType: 'json',
-            success: (json) => {
-                var div = $('#saved_posts_show_div');
-                $.each(json, function (saved_posts) {
-                    div.append("<p>" + saved_posts.desription + "</p>");
-                    div.append("<div> <image src='saved_posts.image.url'> </div>");
-                });
-                
-            },
-            error: function (xhr, errmsg, err) {
-                console.error(xhr, errmsg, err)
-            }
-        });
-    })
-
-</script> -->
-
+<!-- <script src="{% static 'jquery-3.6.0.js' %}" type="text/javascript"></script> -->
 
 <!-- maybe use ajax  to change the url  -->
-
-
-
-
-
 
 {% endblock %}

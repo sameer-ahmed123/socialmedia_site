@@ -1,17 +1,12 @@
-{% if request.user in obj.like.all %}
-<button class="btn_1 btn-sm btn-outline-danger" name="btn_1" type="submit" data-post-id="{{ obj.id }}">Unlike </button>
-{% else %}
-<button class="btn_1 btn-sm btn-outline-success " name="btn_1" type="submit" data-post-id="{{ obj.id }}">Like </button>
-{% endif %}
-
-
-{% if obj.like_count == 1 %}
-<span  id="like_count{{ obj.id }}" >Liked by {{obj.like_formatted}} person </span>
-{% elif obj.like_count == 0 %}
-<span  id="like_count{{ obj.id }}" >Liked by {{obj.like_formatted}} people </span>
-{% elif obj.like_count > 1 %}
-<span  id="like_count{{ obj.id }}">Liked by {{obj.like_formatted}} people </span>
-{% endif %}
-
-
-
+<div  style="display: flex;flex-direction: column; align-items: center;justify-content: center" >
+    {% if request.user in obj.like.all %}
+    <button class="btn_1 btn-sm btn-outline-danger" name="btn_1" type="submit" data-post-id="{{ obj.id }}">Unlike </button>
+    {% else %}
+    <button class="btn_1 btn-sm btn-outline-success " name="btn_1" type="submit" data-post-id="{{ obj.id }}">Like </button>
+    {% endif %}
+    
+    
+   
+    
+    
+</div>

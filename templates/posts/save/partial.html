@@ -1,9 +1,9 @@
 {% if obj in user.profile.favorites.all %}
-<button style="border: 0 transparent;" class="btn_2 " id="post_save{{ obj.id }}" name="btn_2" type="submit"
+<button style="border: 0 transparent;margin: 0;" class="btn_2 " id="post_save{{ obj.id }}" name="btn_2" type="submit"
     data-post-id-save="{{ obj.id }}"><i style="font-size: 24px;" class="fa-solid fa-bookmark"
         id="icon_save{{obj.id}}"></i></button>
 {% else %}
-<button style="border: 0 transparent;" class="btn_2 " id="post_save{{ obj.id }}" name="btn_2" type="submit"
+<button style="border: 0 transparent;margin: 0;" class="btn_2 " id="post_save{{ obj.id }}" name="btn_2" type="submit"
     data-post-id-save="{{ obj.id }}"><i style="font-size: 24px;" class="fa-regular fa-bookmark"
         id="icon_save{{obj.id}}"></i> </button>
 {% endif %}

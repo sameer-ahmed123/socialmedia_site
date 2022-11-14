@@ -19,7 +19,7 @@
 {% for obj in obj %}
 
 <div
-    style="height:auto;border-radius:5px;margin-bottom:25px;padding:1rem;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;margin-top:150px;">
+    style="border-radius:5px;margin-bottom:25px;padding:1rem;box-shadow: rgba(0, 0, 0, 0.34) 0px 5px 15px;margin-top:150px;">
     <form method="post">
         <input hidden value="{{obj.id}}" name="liked_post_id">
     </form>
@@ -43,15 +43,37 @@
         {% endif %}
         <p>{{obj.desription}}</p>
     </div>
-    <div id="like-div">
-        {% include "posts/likes/partial.html" %}
+
+    <div id="like-div" style="width: 100%;display: flex;justify-content: space-between;padding-right:35px;padding-left: 35px;">
+        <div style="width: 100%;display: flex;align-items: center;justify-content: space-between;">
+            <div style="display: flex;align-items: center;gap: 10px;">
+                {% include "posts/likes/partial.html" %}
+                <a hx-boost="true" style="margin-top: 0;" href='{% url "post_detail" obj.id  %}'
+                    class="btn btn-outline-dark ">comment</a>
+                <strong>Share</strong>
+            </div>
+            {% include "posts/save/partial.html" %}
+        </div>
     </div>
-    <div id="save-div">
+    <div style="padding-left: 35px;">
+        {% if obj.like_count == 1 %}
+        <p id="like_count{{ obj.id }}">{{obj.like_formatted}} Likes </p>
+        {% elif obj.like_count == 0 %}
+        <p id="like_count{{ obj.id }}">{{obj.like_formatted}} Likes </p>
+        {% elif obj.like_count > 1 %}
+        <p id="like_count{{ obj.id }}">{{obj.like_formatted}} Likes </p>
+        {% endif %}
+    </div>
+
+
+    <br>
+    <!-- <div id="save-div">
         {% include "posts/save/partial.html" %}
-    </div>
-    <div hx-boost="true">
+    </div> -->
+    <div hx-boost="true" style="display: flex;align-items: center;justify-content: space-between;">
         <!-- #false -->
-        <a hx-boost="true" href='{% url "post_detail" obj.id  %}' class="btn btn-outline-dark mt-4">comment</a>
+        <!-- <a hx-boost="true" style="margin-top: 0;" href='{% url "post_detail" obj.id  %}' class="btn btn-outline-dark ">comment</a>
+        {% include "posts/save/partial.html" %} -->
     </div>
 
     <div style="width: 100%;display: flex;justify-content:flex-end;gap:10px ;">
