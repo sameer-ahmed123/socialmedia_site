@@ -49,7 +49,3 @@ class postCreateForm(forms.ModelForm):
             'image': forms.FileInput(attrs={"class": "form-control"})
         }
     
-# class CommentForm(forms.ModelForm):
-#     class Meta:
-#         model = Comments
-#         fields = ('comment','post','user')

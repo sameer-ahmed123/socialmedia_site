@@ -9,21 +9,15 @@ class Profile_list(admin.ModelAdmin):
     list_display = ["user"]
     
 
-    
-
 class ProfileInline(admin.StackedInline):
     model = Profile
 
-
 class UserAdmin(admin.ModelAdmin):
     model = User
-    #fields = ['followed__by']
     list_display = ["username", "email", 'last_login' ]
     inlines = [ProfileInline]
     
-    
-    
+     
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
-#admin.site.unregister(Group)
-#admin.site.register(Profile, Profile_list)
+

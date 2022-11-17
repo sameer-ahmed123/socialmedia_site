@@ -15,23 +15,17 @@ from django.core import serializers
 
 
 def profile_edit_view(request):
-    #user_form = UpdateUserForm()
     profile_form = UpdateProfileForm()
     if request.method == "POST":
-       # user_form = UpdateUserForm(request.POST, instance=request.user)
         profile_form = UpdateProfileForm(
             request.POST, request.FILES, instance=request.user.profile)
-
         if  profile_form.is_valid():
             profile_form.save()
-            #messages.success(request, "Profile has been updated successfully")
             return redirect("user_profile")
         else:
-           # user_form = UpdateUserForm(instance=request.user)
             profile_form = UpdateProfileForm(instance=request.user.profile)
 
-    return render(request, "profiles/profile-page.html", {
-                                                          "profile_form": profile_form})
+    return render(request, "profiles/profile-page.html", {"profile_form": profile_form})
 
 
 def profile_show_view(request, id):

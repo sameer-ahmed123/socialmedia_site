@@ -15,27 +15,15 @@
                     src="{{profile.avatar.url}}" alt="">
                 <strong style="font-size: 34px;">{{profile.user.username}}</strong>
             </div>
-            <!-- <div style="width: 500px;height:350px;border-radius:4px;box-shadow: 5px 5px 0 8px rgba(0,0,0, 0.1);">
-                {{profile.bio}}
-
-            </div> -->
-
-
         </div>
         <div class="follow_count" style="display:flex;gap:35px;">
             <div class="follow_count_count" style="display: flex;flex-direction:column;">
                 <h3>Following</h3>
-                <!-- {% for following in profile.follows.all %}
-                <a style="text-decoration: none;color:#000;" href="{% url 'show-profile' following.id %}">{{following}}</a>
-                {% endfor %} -->
                 <p>{{profile.following_count}}</p>
             </div>
             <br>
             <div class="follow_count_count" style="display: flex;flex-direction:column;">
                 <h3>Followers</h3>
-                <!-- {% for follower in profile.followed_by.all %}
-                <a style="text-decoration: none;color:#000;" href="{% url 'show-profile' follower.id %}">{{follower}}</a>              
-                {% endfor %} -->
                 <p>{{profile.followed_by.all.count}}</p>
             </div>
             {% if profile.user == request.user %}
@@ -55,42 +43,26 @@
                 <a class="btn btn-warning rounded text-white" style="height:auto;width:50px;" href="{% url 'user_profile' %}">Edit</a>
             </div>
         </div>
-
-
-
-
     </div>
 
 
     {% if profile.user == request.user %}
     <div hx-boost="true"
         style="height: 80px;width:100%;border-top:1px solid grey;display:flex;justify-content:center;gap:25px;">
-
         <a class="link1"  id="profile_page_link" href="{% url 'show-profile' profile.id  %}"
             style="height:25px;border:none;background-color:lightgray;border-radius:4px;margin-top:3px;text-decoration:none;color:#000;">Posts</a>
-
-
         <a class="link2"  href="{% url 'saved_posts' profile.id  %}"
             style="height:25px;border:none;background-color:gray;border-radius:4px;margin-top:3px;text-decoration:none;color:#000;">Saved</a>
-
     </div>
     {% else %}
     {% endif %}
 
 
     <div id="posts_showing" style="padding: 20px;text-align:center;width:100%;">
-
-
-
-
-
         <h2>Saved Posts</h2>
         <div class="profile-grid">
             {% for obj in saved_posts %}
             {% for saved_post in obj.favorites.all %}
-
-
-
             {% if saved_post.image.url|slice:"-4:" == ".mp4" %}
             <div class="postss" style="border-radius:5px;padding:1rem;box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;">
                 <div style="display: flex;flex-direction:column;align-items:center;height: 100%;width:100%;">
@@ -113,14 +85,10 @@
             {% endfor %}
             {% endfor %}
         </div>
-
         {% if profile.user == request.user %}
         <a hx-boost="true" href="{% url 'show-profile' profile.id  %}"> Posts</a>
         {% else %}
         {% endif %}
     </div>
-
-
 </div>
-
 {% endblock %}

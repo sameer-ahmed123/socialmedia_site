@@ -78,18 +78,16 @@
             id="img_display">
 
         </div>
-        <a  href="{% url 'home' %}" class="to_home" type="submit">Go Back</a>  <!-- same issue as home-link on navbar base.html-->
+        <a  href="{% url 'home' %}" class="to_home" type="submit">Go Back</a>
     </div>
 </section>
 
 
 <script>
     var at_first = document.querySelector("#img_display").style.backgroundImage = `url({{post.image.url}})`
-
     const image = document.querySelector("#id_image");
     var uploaded_image = "";
     const display = document.querySelector("#img_dispaly");
-
     image.addEventListener('change', function () {
         //console.log(image.value)
         const reader = new FileReader();

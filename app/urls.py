@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index, favourite_posts, create_post, show, LikeView, getComments, login_view, delete_post, post_comment, edit_post, Purge, logout_view, register_view
+from .views import  index,  favourite_posts,create_post, show, LikeView,  getComments, login_view,  delete_post,   post_comment,   edit_post,   Purge,    logout_view,    register_view
 
 urlpatterns = [
     path("logout/", logout_view, name="logout_view"),

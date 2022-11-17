@@ -106,8 +106,6 @@ def LikeView(request):
         like_unlike = ''
         class_rm = ''
         id = request.POST.get('postid')
-       # a= numerize.numerize(1000000)
-        # print(a)
         
         post = get_object_or_404(Posts, id=id)
         if request.user in post.like.all():

@@ -9,7 +9,6 @@ from profiles.models import Profile
 def create_profile(sender, instance, created, **kwargs):
     if created:
         User_prof = Profile.objects.create(user=instance)
-        # User_prof.save()
         User_prof.follows.set([instance.profile.id])
 
 @receiver(post_save, sender=User)

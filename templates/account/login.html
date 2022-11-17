@@ -1,9 +1,6 @@
 {% extends "bootstrap.html" %}
 {% load static %}
 {% load socialaccount %}
-
-
-
 <style>
     .to_home {
         border: none;
@@ -24,7 +21,7 @@
 </style>
 
 {% block content %}
-<section class="vh-100 " style="background-color: #fff;">
+<section class="vh-100" style="background-color: #fff;height: 100vh;">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100 ">
             <div class="col col-xl-10">
@@ -61,20 +58,11 @@
                                     </h5>
 
                                     <div class="form-outline mb-4">
-                                        <!-- <input type="email" id="form2Example17" class="form-control form-control-lg" /> -->
                                         {{form.username}}
                                         <label class="form-label" for="form2Example17">Username</label>
-                                        <!-- <input type="text" name="" id="" list="usernames"> -->
-                                        <!-- <datalist id="id_usernames">
-                                            {% for user in users %}
-                                            <option value="{{user.username}}"></option>   # cant scale this feature 
-                                            {% endfor %}
-                                        </datalist> -->
+                                       
                                     </div>
                                     <div class="form-outline mb-4">
-                                        <!-- <input type="password" id="form2Example27"
-                                            class="form-control form-control-lg" /> -->
-
                                         {{form.password}}
                                         <label class="form-label" for="form2Example27">Password</label>
                                     </div>
@@ -84,11 +72,7 @@
                                     <div class="pt-1 mb-4">
                                         <button class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
                                     </div>
-
-
-                                    
                                     <br>
-
                                     <a class="small text-muted" href="#!">Forgot password?</a>
                                     <p class="mb-5 pb-lg-2 " style="color: #393f81;">Don't have an account? <a
                                             hx-boost="true" href="{% url 'register_view' %}"
