@@ -1,30 +1,9 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
 <head>
     <style>
-        .recent_messages ul {
-            padding-left: 0;
-            border-radius: 6px;
-            background-color: lightgrey;
-        }
-
-        .recent_messages li:not(:last-child) {
-            margin-bottom: 5px;
-            background-color: white;
-        }
-
-        .recent_messages li {
-            text-align: center;
-            list-style: none;
-            font-size: 20px;
-            font-weight: 500;
-            gap: 10px;
-            border-radius: 6px;
-
-        }
-
         .wrapper {
             height: 100vh;
             margin: 0;
@@ -34,6 +13,9 @@
             padding: 25px;
             width: 100vw;
         }
+
+
+
 
         .left {
             margin-top: 20px;
@@ -47,6 +29,27 @@
             height: 450px;
             padding: 10px;
             min-width: 200px;
+        }
+
+        .recent_box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            justify-content: flex-start;
+            margin: 16px 0;
+            box-shadow: 0 0 5px rgba(0, 0, 0, .25), 2px 2px 5px rgba(0, 0, 0, .1);
+            border-radius: 6px;
+            padding: 5px;
+            width: 100%;
+
+        }
+
+        .recent_img {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            aspect-ratio: 1/1;
+            margin-bottom: 15px;
         }
 
         .right {
@@ -86,17 +89,19 @@
             background-color: white;
             line-height: 1.5;
             padding: 15px 15px 30px;
-            border-radius: 3px;
-            border: 1px solid #F7E98D;
+            border-radius: 6px;
+            border: 1px solid rgb(68, 253, 129);
             font: 13px Tahoma, cursive;
             transition: box-shadow 0.5s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: left;
 
         }
 
         .message .message_box span {
             font-size: 18px;
             font-family: cursive;
+
         }
 
         #message_input {
@@ -109,9 +114,12 @@
             padding: 6px;
             font-family: cursive;
             font-size: 20px;
+            width: 100%;
         }
-        #message_input:focus{
-            border: 1px solid green;
+
+        #message_input:focus {
+
+            border: 3px solid rgb(68, 253, 129);
             box-shadow: 0 0 10px #719ECE;
         }
 
@@ -125,14 +133,14 @@
         }
 
         .recent_messages::-webkit-scrollbar-thumb {
-            background: rgb(7, 7, 7);
+            background: rgb(68, 253, 129);
             border-radius: 10px;
         }
 
         .recent_messages::-webkit-scrollbar-thumb:hover {
-            background: #009eb3;
+            background: #0e2b46;
         }
-        
+
         .message_area::-webkit-scrollbar {
             width: 5px;
         }
@@ -143,12 +151,19 @@
         }
 
         .message_area::-webkit-scrollbar-thumb {
-            background: rgb(7, 7, 7);
+            background: rgb(68, 253, 129);
             border-radius: 10px;
         }
 
         .message_area::-webkit-scrollbar-thumb:hover {
-            background: #009eb3;
+            background: #0e2b46;
+        }
+
+        .Message_image {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            border: 3px solid rgb(32, 145, 28);
         }
     </style>
 </head>
@@ -159,94 +174,37 @@
     <div class="left">
         <h3>Recent Messages</h3>
         <div class="recent_messages">
-            <ul>
-                <li>hks</li>
-                <li>asda</li>
-                <li>asdasd</li>
-                <li>asdasd</li>
-                <li>asdasd</li>
-                <li>asdas</li>
-                <li>hks</li>
-                <li>asda</li>
-                <li>asdasd</li>
-                <li>asdas</li>
-                <li>hks</li>
-                <li>asda</li>
-                <li>asdasd</li>
-                <li>asdas</li>
-                <li>hks</li>
-                <li>asda</li>
-                <li>asdasd</li>
-                <li>asdas</li>
-                <li>hks</li>
-                <li>asda</li>
-                <li>asdasd</li>
-                <li>asdas</li>
-                <li>hks</li>
-                <li>asda</li>
-                <li>asdasd</li>
-                <li>asdas</li>
-                <li>hks</li>
-                <li>asda</li>
-                <li>asdasd</li>
-                <li>asdasd</li>
-                <li>asdasd</li>
-                <li>asdas</li>
-            </ul>
+            {% for message in messages %}
+            <!-- <a class="{% if active_user == message.user.username %} btn-success {% endif %}" href=""> -->
+                <div class="recent_box">
+                    <img class="recent_img" src="{{message.user.profile.avatar.url}}">
+                    <p>{{message.user.username}}</p>
+                </div>
+            <!-- </a> -->
+            {% endfor %}
         </div>
 
     </div>
     <div class="right">
         <div class="message_area">
+            {% for direct in directs %}
+            
             <div class="message">
                 <div class="sender_info">
-                    <img src="" alt="" style="height: 40px;width:40px;border-radius: 50%;">
-                    <h4>senders name</h4>
+                    <img src="{{direct.sender.profile.avatar.url}}" alt="" class="Message_image">
+                    <h4>{{direct.sender}}</h4>
+                    <small>{{direct.date|date:'N d G:i'}}</small>
                 </div>
-                <div class="message_box"> <span role="textbox"> ipsum dolor sit amet consectetur
-                        adipisicing elit. Ipsam vel quibusdam qui quae alias, aperiam voluptatum.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam vel quibusdam qui quae alias,
-                        aperiam voluptatum.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam vel quibusdam qui quae alias,
-                        aperiam voluptatum.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam vel quibusdam qui quae alias,
-                        aperiam voluptatum.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam vel quibusdam qui quae alias,
-                        aperiam voluptatum.
-                        ias, aperiam voluptatum.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam vel quibusdam qui quae alias,
-                        aperiam voluptatum.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam vel quibusdam qui quae alias,
-                        aperiam voluptatum.
-                        ias, aperiam voluptatum.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam vel quibusdam qui quae alias,
-                        aperiam voluptatum.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam vel quibusdam qui quae alias,
-                        aperiam voluptatum.
-                        ias, aperiam voluptatum.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam vel quibusdam qui quae alias,
-                        aperiam voluptatum.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam vel quibusdam qui quae alias,
-                        aperiam voluptatum.
-                    </span></div>
+                <div class="message_box"> <span style="text-align: left;" role="textbox"> 
+                  {{direct.body}}  </span></div>
             </div>
-            <div class="message">
-                <img src="" alt="" style="height: 40px;width:40px;border-radius: 50%;">
-                <h4>senders name</h4>
-                <div class="message_box"> <span role="textbox">Lorem ipsum dolor sit amet consectetur
-                        adipisicing elit. Ipsam vel quibusdam qui quae alias, aperiam voluptatum.</span></div>
-            </div>
-            <div class="message">
-                <img src="" alt="" style="height: 40px;width:40px;border-radius: 50%;">
-                <h4>senders name</h4>
-                <div class="message_box"><span role="textbox">Lorem ipsum dolor sit amet consectetur
-                        adipisicing elit. Ipsam vel quibusdam qui quae alias, aperiam voluptatum.</span></div>
-            </div>
+            {% endfor %}
         </div>
-        <div class="type_message" style="width: 75%;">
+        <div class="type_message" style="width: 80%;">
             <form method="post" style="width: 100%;display: flex;gap: 15px;">
                 {% csrf_token %}
-                <input type="text" tabindex="0"  id="message_input" style="width: 100%;">
+                <!-- <input type="text" tabindex="0" id="message_input" style="width: 100%;"> -->
+                {{ form.body }}
                 <input type="submit" class="btn btn-success" value="send" name="" id="">
             </form>
         </div>
