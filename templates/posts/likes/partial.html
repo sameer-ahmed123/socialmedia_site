@@ -1,7 +1,7 @@
 <div  style="display: flex;flex-direction: column; align-items: center;justify-content: center" >
     {% if request.user in obj.like.all %}
-    <button class="btn_1 btn-sm btn-outline-danger" name="btn_1" type="submit" data-post-id="{{ obj.id }}">Unlike </button>
+    <button class="btn_1 btn btn-outline-danger" style="border: 1px solid transparent;" name="btn_1" type="submit" data-post-id="{{ obj.id }}"><i class="fa-solid fa-thumbs-down"></i> </button>
     {% else %}
-    <button class="btn_1 btn-sm btn-outline-success " name="btn_1" type="submit" data-post-id="{{ obj.id }}">Like </button>
+    <button class="btn_1 btn btn-outline-success " style="border: 1px solid transparent;" name="btn_1" type="submit" data-post-id="{{ obj.id }}"><i class="fas fa-thumbs-up"></i> </button>
     {% endif %}
 </div>

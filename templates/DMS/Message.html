@@ -165,6 +165,35 @@
             border-radius: 50%;
             border: 3px solid rgb(32, 145, 28);
         }
+
+        .sent_message{
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-end;
+            margin-bottom: 15px;
+        }
+        .sent_sender_info{
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px; 
+        }
+        .sent_message_box{
+            width: 70%;
+            direction: rtl;
+            display: block;
+            max-width: 100%;
+            background-color: white;
+            line-height: 1.5;
+            padding: 15px 15px 30px;
+            border-radius: 6px;
+            border: 1px solid rgb(68, 253, 129);
+            font: 13px Tahoma, cursive;
+            transition: box-shadow 0.5s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
     </style>
 </head>
 
@@ -178,7 +207,7 @@
             <!-- <a class="{% if active_user == message.user.username %} btn-success {% endif %}" href=""> -->
                 <div class="recent_box">
                     <img class="recent_img" src="{{message.user.profile.avatar.url}}">
-                    <p>{{message.user.username}}</p>
+                    <a href="{% url 'directs' message.user.id %}">{{message.user.username}}</a>
                 </div>
             <!-- </a> -->
             {% endfor %}
@@ -188,7 +217,7 @@
     <div class="right">
         <div class="message_area">
             {% for direct in directs %}
-            
+            <!-- make this for recived messages  -->
             <div class="message">
                 <div class="sender_info">
                     <img src="{{direct.sender.profile.avatar.url}}" alt="" class="Message_image">
@@ -199,6 +228,16 @@
                   {{direct.body}}  </span></div>
             </div>
             {% endfor %}
+            <!-- this for sent messages -->
+            <div class="sent_message">
+                <div class="sent_sender_info">
+                    <img src="{{direct.sender.profile.avatar.url}}" alt="" class="Message_image">
+                    <h4>Admin</h4>
+                    <small>{{direct.date|date:'N d G:i'}}</small>
+                </div>
+                <div class="sent_message_box"> <span style="text-align: left;" role="textbox"> 
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla in velit pariatur doloribus iure eligendi? </span></div>
+            </div>
         </div>
         <div class="type_message" style="width: 80%;">
             <form method="post" style="width: 100%;display: flex;gap: 15px;">

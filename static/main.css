@@ -22,6 +22,10 @@ a {
     
 }
 
+.comment_icon:hover {
+    color: white;
+}
+
 p span strong {
     color: #fff;
 }
