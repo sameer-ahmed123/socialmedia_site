@@ -242,8 +242,7 @@
         <div class="type_message" style="width: 80%;">
             <form method="post" style="width: 100%;display: flex;gap: 15px;">
                 {% csrf_token %}
-                <!-- <input type="text" tabindex="0" id="message_input" style="width: 100%;"> -->
-                {{ form.body }}
+                {{ form.Message_body}}
                 <input type="submit" class="btn btn-success" value="send" name="" id="">
             </form>
         </div>

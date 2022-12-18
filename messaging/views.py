@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from messaging.models import Message
-from messaging.forms import MessageForm
+from messaging.forms import DirectForm
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -21,7 +21,7 @@ def Message_template(request):
             if message['user'].username == active_user:
                 message['unread'] = 0
 
-    form = MessageForm()
+    form = DirectForm()
     context = {
         "form": form,
         "directs": directs,
@@ -48,3 +48,9 @@ def Directs(request, username):
         "active_direct":active_direct,
     }
     return render(request, "DMS/Message.html", context)
+
+
+@login_required
+def SendDirect(request):
+    from_user = request.user
+    to_user_username = request.POST.get('body')  
