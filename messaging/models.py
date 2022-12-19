@@ -12,12 +12,12 @@ class Message(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     is_read =models.BooleanField(default=False)
 
-    def send_message(from_user,to_user, body):   # to create message for both sender and reciver
+    def send_message(from_user,to_user, Message_body):   # to create message for both sender and reciver
         sender_message = Message(
            user = from_user,
            sender = from_user,
            recipent = to_user,
-           body = body,
+           Message_body = Message_body,
            is_read = True
         )
         sender_message.save()
@@ -26,7 +26,7 @@ class Message(models.Model):
             user = to_user,
             sender =from_user,
             recipent = from_user,  #to_user
-            body = body,            
+            Message_body = Message_body,            
         )
 
         recipent_message.save()

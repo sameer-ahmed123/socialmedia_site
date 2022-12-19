@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from messaging.models import Message
+from django.http import HttpResponseBadRequest
 from messaging.forms import DirectForm
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -41,8 +43,9 @@ def Directs(request, username):
     for message in messages:
         if message['user'].username == username:
             message['unread'] = 0
-
+    form = DirectForm()
     context = {
+        "form": form,
         "directs":directs,
         "messages": messages,
         "active_direct":active_direct,
@@ -53,4 +56,14 @@ def Directs(request, username):
 @login_required
 def SendDirect(request):
     from_user = request.user
-    to_user_username = request.POST.get('body')  
+    to_user_username = request.POST.get('to_user')
+    print(to_user_username)
+    Message_body = request.POST.get('Message_body')
+    print(Message_body)
+
+    if request.method =="POST":
+        to_user = User.objects.get(id= to_user_username)
+        Message.send_message(from_user, to_user, Message_body)
+        return redirect('Message_template')
+    else:
+        HttpResponseBadRequest("bad reuest")

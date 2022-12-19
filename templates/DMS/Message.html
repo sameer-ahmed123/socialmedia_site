@@ -225,11 +225,11 @@
                     <small>{{direct.date|date:'N d G:i'}}</small>
                 </div>
                 <div class="message_box"> <span style="text-align: left;" role="textbox"> 
-                  {{direct.body}}  </span></div>
+                  {{direct.Message_body}}  </span></div>
             </div>
             {% endfor %}
             <!-- this for sent messages -->
-            <div class="sent_message">
+            <!-- <div class="sent_message">
                 <div class="sent_sender_info">
                     <img src="{{direct.sender.profile.avatar.url}}" alt="" class="Message_image">
                     <h4>Admin</h4>
@@ -237,13 +237,14 @@
                 </div>
                 <div class="sent_message_box"> <span style="text-align: left;" role="textbox"> 
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla in velit pariatur doloribus iure eligendi? </span></div>
-            </div>
+            </div> -->
         </div>
         <div class="type_message" style="width: 80%;">
-            <form method="post" style="width: 100%;display: flex;gap: 15px;">
+            <form method="post" action="{% url 'send_direct' %}" style="width: 100%;display: flex;gap: 15px;" >
+                <input style="display: none;" type="number" value="{{active_direct}}" name="to_user">
                 {% csrf_token %}
                 {{ form.Message_body}}
-                <input type="submit" class="btn btn-success" value="send" name="" id="">
+                <input type="submit" class="btn btn-success" value="send" name="action" id="">
             </form>
         </div>
 
