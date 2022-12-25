@@ -16,8 +16,9 @@
         {% for profile in profile %}
         {% if profile.user == obj.user %}
         <div style="margin-bottom:5px;">
-            <img src="{{profile.avatar.url}}" style="height:40px;width:40px;border-radius:50%;">
-            <a hx-boost="true" href="{% url 'show-profile' profile.id %}">{{obj.user}}</a>
+            <img 
+             src="{{profile.avatar.url}}" style="height:40px;width:40px;border-radius:50%;">
+            <a hx-boost="true" draggable="true" href="{% url 'show-profile' profile.id %}">{{obj.user}}</a>
         </div>
         {% endif %}
         {% endfor %}
