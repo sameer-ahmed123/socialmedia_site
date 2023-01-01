@@ -256,6 +256,7 @@
                 <input style="display: none;" type="number" value="{{active_direct}}" name="to_user">
                 {% csrf_token %}
                 {{ form.Message_body}}
+               
                 <input type="submit" class="btn btn-success" value="send" name="action" id="">
             </form>
         </div>

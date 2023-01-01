@@ -13,7 +13,8 @@ class Profile(models.Model):
     bio = models.TextField()
     country = models.CharField(max_length=500, blank =True, null = True)
     address = models.CharField(max_length = 500, blank=True, null = True)
-    
+    phone = models.IntegerField( blank=True, null=True)
+
     follows = models.ManyToManyField("self", related_name="followed_by", symmetrical=False, blank=True)  
     is_private = models.BooleanField(default=False)
     avatar = models.ImageField(default="default.jpg", upload_to= "profile_images", blank = True , )

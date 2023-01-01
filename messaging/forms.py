@@ -6,5 +6,5 @@ class DirectForm(forms.ModelForm):
         model = Message
         fields = ('Message_body',)
         widgets  = {
-            'Message_body': forms.TextInput(attrs={"id": "message_input"})  
+            'Message_body': forms.TextInput(attrs={"id": "message_input","autocomplete":"off"})  
         }
