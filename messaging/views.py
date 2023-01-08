@@ -4,7 +4,8 @@ from django.http import HttpResponseBadRequest
 from messaging.forms import DirectForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-
+from django.db.models import Q 
+from django.core.paginator import Paginator
 # Create your views here.
 @login_required
 def Message_template(request):
@@ -67,3 +68,34 @@ def SendDirect(request):
         return redirect('Message_template')
     else:
         HttpResponseBadRequest("bad reuest")
+
+
+# searching user view
+@login_required
+def search(request):
+    query = request.GET.get("q")
+    context = {}
+    if query:
+        users = User.objects.filter(Q(username__icontains=query))
+
+        #paginator
+        paginator = Paginator(users , 6)
+        page = request.GET.get('page')
+        users_paginator = paginator.get_page(page)
+        context = {
+            'users':users_paginator,
+
+        }
+    return render(request, "DMS/search_user.html",context)
+
+@login_required
+def new_conversation(request, username):
+    from_user = request.user
+    body = "says hello"
+    try:
+        to_user = User.objects.get(username=username)
+    except Exception as e:
+        return redirect("user_search") 
+    if from_user != to_user:
+        Message.send_message(from_user, to_user, body)
+    return redirect("Message_template")    

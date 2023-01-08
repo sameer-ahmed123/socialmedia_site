@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<form class="d-flex mx-4" method="get">
+    <input name="q" value="{{request.GET.q}}" class="form-control me-2" type="search" placeholder="Search Users....." aria-label="Search">
+    <button class="btn btn-outline-success " type="submit">Search</button>
+</form>
+
+<div class="queried_users">
+    {% for user in users %}
+    <div class="card" style="width: 18rem;">
+        <img src="{{user.profile.avatar.url}}" class="card-img-top rounded" alt="profile -image">
+        <div class="card-body">
+          <h5 class="card-title">{{user.profile.username}}</h5>
+          <p class="card-text">{{user.profile.bio}}</p>
+          <a href="{% url 'new_convo' user.username %}" class="btn btn-primary">Message</a>
+        </div>
+      </div>
+    {% endfor %}
+</div>
+
+
+
+{% endblock %}
